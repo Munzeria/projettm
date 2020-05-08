@@ -1,0 +1,191 @@
+<html>
+
+<head>
+    <meta charset="utf-8"  name="viewport" content="width=device-width, initial-scale="1"/>
+	
+	
+	
+	<link type="text/css" rel="stylesheet" href="bootstrap/css/bootstrap.min.css">
+	
+	 <script type="text/javascript" src="jquery-3.4.1.js"></script>
+	
+	<script type="text/javascript" src="jquery-3.4.1.js"></script>
+    
+    <script type="text/javascript" src="bootstrap/js/bootstrap.js"></script>
+
+   
+	
+	<script type="text/javascript" src="ticket.js"></script>
+</head>
+<body>
+	<script>
+// récupérer l'ensemble des projections de la bd
+	function getProjection()
+	{	var str="";
+		var horaireSplit;
+		var genreSplit;
+		var idGenreSplit;
+		$.ajax(
+		{
+		  method: "GET",
+		  url: "affichage.php",
+		  async:false,  
+		  dataType: "json"
+		})
+			
+			// afficher aussi le type de séance 
+			.done(function(data) {
+				str+="<div id='accordion'>";
+				
+				for(var i in data){
+					
+					str+="<div class='card'> <div class='card-header' id='heading"+i+"'> <h5 class='mb-0'> <button class='btn btn-link' data-toggle='collapse' data-target='#collapse"+i+"' aria-expanded='false' aria-controls='collapse"+i+"'>"+data[i].titre+"</button></h5></div>";
+					str+="<div id='collapse"+i+"' class='collapse' aria-labelledby='heading"+i+"' data-parent='#accordion'>";
+					
+					str+="<div class='card-body'>"+data[i].description+"<br>";
+					
+					// propose un bouton pour chaque représentation du même film
+					horaireSplit=data[i].horaire.split(">");
+					idGenreSplit=data[i].idGenre.split(">");
+					genreSplit=data[i].genre.split(">");
+					idSalleSplit=data[i].idSalle.split(">");
+					
+					// data-titre permet de stocker le nom du film auquel appartient le bouton pour le récupérer plus tard etc 
+					for(var j in horaireSplit){
+						str+="<br>"+genreSplit[j]+"<br>";
+						str+="<button type='submit' class='btn-validation btn-info'  data-titre='" + data[i].titre + "' data-horaire='" + horaireSplit[j] + "' data-genre='" + idGenreSplit[j] + "' data-salle='"+ idSalleSplit[j] +"' >"+horaireSplit[j]+"</button><br>";
+						
+					}
+					
+					str+="</div></div></div>";
+					
+				}
+				str+="</div>";
+			})
+			.fail(function(error) {
+				alert( "error détectée:" + error.responseText);
+				str="error détectée:" + error.responseText;
+			})
+			.always(function() {
+				<!-- alert( "finished"  ); -->
+			});
+			
+		  return str; 
+	};
+	
+	$(document).ready(function(){
+	
+		
+		$("#reserver").hide();
+		
+		filmList=getProjection();		
+		$("#afficher").html(filmList);
+		
+		var chaine;
+		var horaire;
+		var genre;
+		var salle;
+		
+		
+		// fonction pour récup le film sélectionné
+		$(".btn-validation").click(function(event) {
+			// à afficher dans le résumé
+			chaine=$(this).data("titre");
+			horaire=$(this).data("horaire");
+			genre = $(this).data("genre");
+			salle = $(this).data("salle");
+			
+			
+			$.ajax(
+			{	
+				//envoi d'une demande de récupération des prix des tickets selon le genre de la projection choisie
+				method: "GET",
+				url: "reservation.php",
+				data: "genre="+genre,  
+				dataType: "json",
+				success : function(retour, statut){
+					
+					// création de la table avec les différents tickets
+					$("#table").append(createTable(retour[0]));
+					
+					//afficher la div de la table / cacher celle des projections
+					$("#reserver").show();
+					$("#afficher").hide();
+				},
+				
+				error : function(resultat, statut, erreur){
+					alert( "error détectée:" + erreur.responseText);
+				}
+			})
+		});
+		
+		$("#valider").click(function(event) {	
+		
+			$.ajax(
+			{	
+				method: "GET",
+				url: "nombreTicket.php",
+				data: "horaire="+horaire+"&salle="+salle,  
+				dataType: "json",
+				success : function(retour, statut){
+					if(getTicketAmount()==0){
+                        alert("Commande impossible, il est impossible de commander 0 ticket !");
+                        return;
+                    }
+                    
+                    if(retour[0].nbTicketAvailable>=getTicketAmount()){
+                        //Valider commande
+                    }else{
+                        alert("Commande impossible, il ne reste que "+retour[0].nbTicketAvailable+" disponible.");
+                    }
+				},
+				
+				error : function(resultat, statut, erreur){
+					alert( "error détectée:" + erreur.responseText);
+				}
+			})
+		});
+		
+		$("#retour").click(function(event) {
+			$("#reserver").hide();
+			$("#table").children("#getTable").remove();
+			$("#afficher").show();
+		});
+	});
+	</script>
+	
+	
+	<div class="container-sm"> 
+		<div class="nav sticky-top navbar-light bg-light container-sm">
+			<ul class="nav nav-tabs " id="myTab" role="tablist">
+				<li class="nav-item">
+					<a class="nav-link" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="false">Home</a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link active" id="projection-tab" data-toggle="tab" href="#projection" role="tab" aria-controls="projection" aria-selected="true">Projections</a>
+				</li>
+			</ul>
+		</div>
+		
+			<!-- Tab panes -->
+		<div class="tab-content container-sm">
+			<div class="tab-pane" id="home" role="tabpanel" aria-labelledby="home-tab">
+			
+			</div>
+			
+			<div class="tab-pane active" id="projection" role="tabpanel" aria-labelledby="projection-tab">
+				<div id="afficher"></div>
+				<div id="reserver">
+					<button id="retour" class="btn-info" onclick="reset()">Retour au choix de projection</button>
+					<div id="table"></div>
+					<button id="valider" class="btn-info">Valider</button>
+				</div>
+			</div>
+		</div>
+		
+    </div>
+	
+	
+</body>
+
+</html>

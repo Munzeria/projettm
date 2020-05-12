@@ -1,3 +1,7 @@
+<?php
+	session_start();
+?>
+<!DOCTYPE html>
 <html>
 	<head>
 		<meta charset="utf-8"  name="viewport" content="width=device-width, initial-scale=1"/>
@@ -6,14 +10,17 @@
 		
 		<script type="text/javascript" src="jquery-3.4.1.js"></script>
 		
+		<script type="text/javascript" src="bootstrap/js/bootstrap.bundle.min.js"></script>
+		
 		<script type="text/javascript" src="bootstrap/js/bootstrap.js"></script>
-
+		
 		<script type="text/javascript" src="ticket.js"></script>
 	</head>
 	<body>
 		<div class="container-sm"> 
 		
 			<div class="nav sticky-top navbar-light bg-light container-sm">
+				
 				<!--	Navbar left items	-->
 				<ul class="nav nav-tabs " id="myTab" role="tablist">
 					<li class="nav-item">
@@ -23,10 +30,26 @@
 						<a class="nav-link active" id="projection-tab" data-toggle="tab" href="#projection" role="tab" aria-controls="projection" aria-selected="true">Projections</a>
 					</li>
 				</ul>
+				
 				<!--	Navbar right items-->
 				<ul class="nav navbar-nav ml-auto">
 					<li class="nav-item">
-						<a class="nav-link" href="loginUser.php">Connexion</a>
+						<?php
+						if(!isset($_SESSION['username'])){
+							print "<a class='nav-link' href='user/loginUser.php'>Connexion</a>";
+						}
+						else{
+							//print "<div >Bienvenue, <a href=''>" . $_SESSION['username'] . "</a> - <a href='user/logout.php'>déconnexion</a></div>";
+							print "<div class='dropleft'>"
+									. "<button class='btn btn-link dropdown-toggle' type='button' id='dropdownMenuButton' data-toggle='dropdown' aria-haspopup='true' aria-expanded='false'>"
+									. $_SESSION['username']
+									. "</button>"
+									."<div class='dropdown-menu' aria-labelledby='dropdownMenuButton'>"
+										."<a class='dropdown-item' href='user/logout.php'>Déconnexion</a>"
+									."</div>"
+								. "</div>";
+						}
+						?>
 					</li>
 				</ul>
 			</div>

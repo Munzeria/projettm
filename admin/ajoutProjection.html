@@ -119,13 +119,25 @@
         });
 		
 		$("#ajoutProj").click(function(event) {	
-			// vérifier que les inputs ne sont pas vides
+		
+			$('#alert').empty();
+			if($('input[name=horaire]').val()==""){
+				$('#alert').append("Veuillez choisir une date");
+				$('#alert').show();
+				return;
+			}
+			else if($('input[name=heure]').val()==""){
+				$('#alert').append("Veuillez choisir une heure");
+				$('#alert').show();
+				return;
+			}
+
 			$.ajax({
                 url: 'gestionAdmin.php',
                 type:'POST',
                 data:
                 {
-                    myFunction:'verif_seance',
+                    myFunction:'ajout_seance',
                     myParams:{
                         idFilm:selectedFilmProjection,
 						horaire:$('input[name=horaire]').val(),

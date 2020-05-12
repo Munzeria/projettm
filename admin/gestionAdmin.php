@@ -47,7 +47,7 @@ function ajout_film($data){
 	
 }
 
-function verif_seance($data){
+function ajout_seance($data){
 	
 	$horaire=$data['myParams']['horaire'];
 	$heure=$data['myParams']['heure'];

@@ -1,7 +1,9 @@
-<!DOCTYPE html>
+
+
 <?php
-	session_start();
+		session_start();
 ?>
+<!DOCTYPE html>
 <html>
 	<head>
 	<meta charset="utf-8">
@@ -19,93 +21,123 @@
 			alert('Votre texte ne doit pas dépasser '+maxlength+' caractères!');
 		   }
 		}
-
-		function setValues(username,prenom,nom,adresse,ville,codepostal,telephone){
-			document.getElementById("inputUsername").value=username;
-			document.getElementById("inputPrenom").value=prenom;
-			document.getElementById("inputNom").value=nom;
-			document.getElementById("inputAdresse").value=adresse;
-			document.getElementById("inputVille").value=ville;
-			document.getElementById("inputCP").value=codepostal;
-			document.getElementById("inputTelephone").value=telephone;
-		}
-
+		
+		var user="";
+		$(document).ready(function(){
+			// get the current user
+			$.ajax({
+                url: 'gestionUser.php',
+                type:'POST',
+                data:
+                {
+                    myFunction:'connexionUser',
+                    myParams:{
+                        
+                    }
+                },
+				async:false, 				
+                success: function(str)
+                {
+					user=str;
+					// display the informations of the current user
+					$.ajax({
+						url: 'gestionUser.php',
+						type:'POST',
+						data:
+						{
+							myFunction:'getUser',
+							myParams:{
+								username: $.trim(str)
+							}
+						},
+						async:false, 	
+						dataType: "json",
+						success: function(retour)
+						{
+							$("#inputUsername").val(retour[0]['username']);
+							$("#inputPassword").val(retour[0]['username']);
+							$("#inputPrenom").val(retour[0]['prenom']);
+							$("#inputNom").val(retour[0]['nom']);
+							$("#inputAdresse").val(retour[0]['addresse']);
+							$("#inputVille").val(retour[0]['ville']);
+							$("#inputCP").val(retour[0]['cp']);
+							$("#inputTelephone").val(retour[0]['tel']);
+						},
+						error : function(resultat, statut, erreur){
+							alert( "error détectée:" + resultat.responseText);
+						}
+					});
+                },
+				error : function(resultat, statut, erreur){
+					alert( "error détectée:" + resultat.responseText);
+				}
+			});
+			
+			// updates the user's informations
+			$("#valider").click(function(event) {
+				$.ajax({
+						url: 'gestionUser.php',
+						type:'POST',
+						data:
+						{
+							myFunction:'updateUser',
+							myParams:{
+								username:$('input[id=inputUsername]').val(),
+								mdp: $('input[id=inputPassword]').val(),
+								nom:$('input[id=inputNom]').val(),
+								prenom:$('input[id=inputPrenom]').val(),
+								adresse:$('input[id=inputAdresse]').val(),
+								ville:$('input[id=inputVille]').val(),
+								cp:$('input[id=inputCP]').val(),
+								tel:$('input[id=inputTelephone]').val()
+							}
+						},
+						success: function()
+						{
+							alert("Modification effectuée");
+						},
+						error : function(resultat, statut, erreur){
+							alert( "error détectée:" + resultat.responseText);
+						}
+					});
+			});
+			
+		});
+		
+		
 
 	</script>
 </head>
 <body>
-	<?php
-		include '../connexion.php';
-		$conn = connectDB("localhost","cinema","root","");
-			$free['free']=1;
-			if (isset($_POST['username'])){
-				$oldUser = $_SESSION["username"];
-				$username=$_POST['username'];
-				$free = traitementReadDB($conn,"select count(*) as 'free' from userInformation where username='$username' and username<>'$oldUser'");
-			}
-		if ($free['free']==0){
-			$username=$_POST['username'];
-			$password=$_POST['password'];
-			$prenom=$_POST['prenom'];
-			$nom=$_POST['nom'];
-			$adresse=$_POST['adresse'];
-			$ville=$_POST['ville'];
-			$codepostal=$_POST['codepostal'];
-			$telephone=$_POST['telephone'];
-			$oldUser = $_SESSION["username"];
-
-			$req ="update userInformation set username='$username', password='".hash('sha256', $password)."', nom='$nom', prenom='$prenom', addresse='$adresse', cp='$codepostal', ville='$ville', tel='$telephone' where username='$oldUser'"; 
-			// Exécuter la requête sur la base de données
-			$res = writeDB($conn,$req);
-			
-			if($res){
-				$_SESSION['username'] = $username;
-				header("Location: ../index.php");
-				echo "<script>window.location.assign('..')</script>";
-			}
-		}else{
-	?>
+	
 	<form class="box container-sm sm-1 form-signin" action="" method="post" name="register">
 
 		<label for="inputUsername" >Nom d'utilisateur</label>
-		<input type="text" id="inputUsername" class="box-input form-control" name="username" placeholder="Nom d'utilisateur" required onkeyup="MaxLengthText(this,50);">
+		<input type="text" id="inputUsername" class="box-input form-control" name="username" placeholder="Nom d'utilisateur" disabled>
+		
 		<label for="inputPassword" >Mot de passe</label>
 		<input type="password" id="inputPassword" class="box-input form-control" name="password" placeholder="Mot de passe" required onkeyup="MaxLengthText(this,100);">
+		
 		<label for="inputPrenom" >Prénom</label>
 		<input type="text" id="inputPrenom" class="box-input form-control" name="prenom" placeholder="Prénom" required onkeyup="MaxLengthText(this,150);">
+		
 		<label for="inputNom" >Nom</label>
 		<input type="text" id="inputNom" class="box-input form-control" name="nom" placeholder="Nom" required onkeyup="MaxLengthText(this,150);">
+		
 		<label for="inputAdresse" >Rue et numéro</label>
 		<input type="text" id="inputAdresse" class="box-input form-control" name="adresse" placeholder="Rue et numéro" required onkeyup="MaxLengthText(this,150);">
+		
 		<label for="inputVille" >Ville</label>
 		<input type="text" id="inputVille" class="box-input form-control" name="ville" placeholder="Ville" required onkeyup="MaxLengthText(this,100);">
+		
 		<label for="inputCP" >Code postal</label>
 		<input type="text" id="inputCP" class="box-input form-control" name="codepostal" placeholder="Code postal" required onkeyup="MaxLengthText(this,6);">
+		
 		<label for="inputTelephone" >Téléphone</label>
 		<input type="tel" id="inputTelephone" class="box-input form-control" name="telephone" placeholder="Téléphone" pattern="^((\+\d{1,3}(-| )?\(?\d\)?(-| )?\d{1,5})|(\(?\d{2,6}\)?))(-| )?(\d{3,4})(-| )?(\d{4})(( x| ext)\d{1,5}){0,1}$" required onkeyup="MaxLengthText(this,50);">
 		
 		
-	   <div class="container form-inline"><input type="button" value="Retour" name="retour" class="box-button btn btn-primary" onclick="window.location.assign('..');"> <input type="submit" value="Valider" name="submit" class="box-button btn btn-primary"><div id="alert"></div></div>
+	   <div class="container form-inline"><input type="button" value="Retour" name="retour" class="box-button btn btn-primary" onclick="window.location.assign('..');"><input id="valider" type="button" value="Valider" name="submit" class="box-button btn btn-primary"></div>
 	</form>
-
-	<?php
-		$oldUser = $_SESSION["username"];
-		$data =  traitementReadDB($conn,"select * from userInformation where username='$oldUser'");
-		echo "<script>setValues('$data[username]','$data[prenom]','$data[nom]','$data[addresse]','$data[ville]','$data[cp]','$data[tel]');</script>";
-	if (isset($_POST['username'])){
-		$username=$_POST['username'];
-		$prenom=$_POST['prenom'];
-		$nom=$_POST['nom'];
-		$adresse=$_POST['adresse'];
-		$ville=$_POST['ville'];
-		$codepostal=$_POST['codepostal'];
-		$telephone=$_POST['telephone'];
-		echo 
-		"<script>".
-			"$('#alert').append(\"<div class='alert alert-danger'>Username indisponilbe</div>\");".
-			"setValues('$username','$prenom','$nom','$adresse','$ville','$codepostal','$telephone');".
-		"</script>";
-	}
-	} ?>
 </body>
 </html>

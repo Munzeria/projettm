@@ -22,7 +22,17 @@
 			<div class="nav sticky-top navbar-light bg-light container-sm">
 				
 				<!--	Navbar left items	-->
-				<ul class="nav nav-tabs " id="myTab" role="tablist">
+					<!--	HIDDDEN ON SMALL DEVICES	-->
+				<ul class="nav nav-tabs d-none d-sm-flex" id="myTab" role="tablist">
+					<li class="nav-item">
+						<a class="nav-link" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="false">Home</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link active" id="projection-tab" data-toggle="tab" href="#projection" role="tab" aria-controls="projection" aria-selected="true">Projections</a>
+					</li>
+				</ul>
+					<!--	HIDDEN ON LARGE DEVICES	-->
+				<ul class="nav nav-tabs d-flex d-sm-none" id="myTab" role="tablist">
 					<li class="nav-item">
 						<a class="nav-link" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="false">Home</a>
 					</li>
@@ -40,7 +50,7 @@
 						}
 						else{
 							//print "<div >Bienvenue, <a href=''>" . $_SESSION['username'] . "</a> - <a href='user/logout.php'>déconnexion</a></div>";
-							print "<div class='dropleft'>"
+							print "<div class='dropdown-menu-right'>"
 									. "<button class='btn btn-link dropdown-toggle' type='button' id='dropdownMenuButton' data-toggle='dropdown' aria-haspopup='true' aria-expanded='false'>"
 									. $_SESSION['username']
 									. "</button>"

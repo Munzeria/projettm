@@ -29,6 +29,4 @@
 	$pdf->Cell(0,10, "Tarif : ".substr($data["tarif"],5)." - ".$data["libelle"]);
 	$pdf->Cell(0,10,"12345678",0,1,'R');
 	$pdf->Output();
-	?>
-
 ?>

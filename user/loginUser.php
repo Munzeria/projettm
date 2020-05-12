@@ -44,7 +44,7 @@
 			
 			<input type="submit" value="Connexion " name="submit" class="box-button btn btn-primary">
 			
-			<div>Nouvel utilisateur ? <a href="user/register.php">Cliquez ici</a></div>
+			<div>Nouvel utilisateur ? <a href="register.php">Cliquez ici</a></div>
 			
 			<?php if (! empty($message)) { ?>
 				<p class="errorMessage"><?php echo $message; ?></p>

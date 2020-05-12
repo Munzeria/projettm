@@ -23,7 +23,7 @@ body {
   position: relative;
   box-sizing: border-box;
   height: auto;
-  padding: 10px;
+  padding: 7px;
   font-size: 16px;
 }
 
@@ -40,16 +40,23 @@ p.errorMessage {
 }
 
 label{
-	border-left: 6px solid #007BFF;
-	background-color:lightgrey;
+	border-bottom: 2px solid #007BFF;
 	width:100%;
 	margin:10px 0 0 0;
 }
 
 label:hover{
-	border-left: 6px solid #007BFF;
-	background-color:black;
-	color:lightgrey;
-	width:100%;
-	margin:10px 0 0 0;
+	border-bottom: 2px solid #007BFF;
+	background-color:#007BFF;
+	color:white;
+}
+
+#alert{
+	margin:10px;
+	font-size:10px;
+	height:40px;
+}
+
+input[type="submit"]{
+	margin:10px;
 }

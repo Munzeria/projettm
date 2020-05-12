@@ -30,4 +30,13 @@ function writeDB($bdd,$request){
 	$result->execute();
 	return $result;
 }
+
+function traitementReadDB($bdd,$req){
+	$result=$bdd->prepare($req);
+	$result->execute();
+
+	$rs = $result->fetch(PDO::FETCH_ASSOC);
+	
+	return $rs;
+}
 ?>

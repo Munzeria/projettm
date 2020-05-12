@@ -21,7 +21,7 @@ if (isset($_POST['username']) && isset($_POST['password']) ){
 	$password=$_REQUEST['password'];
 	
 
-	$query = "SELECT * FROM userInformation WHERE username='$username' and password='".hash('sha256', $password)."'";
+	$query = "SELECT * FROM userInformation WHERE username='$username'and password='".hash('sha256', $password)."'";
 	$result = mysqli_query($conn,$query) or die(mysql_error());
 	$rows = mysqli_num_rows($result);
 	if($rows==1){

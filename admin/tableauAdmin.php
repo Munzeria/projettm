@@ -15,30 +15,32 @@ $bdd=connectDB("localhost","cinema","root","");
   }
 ?>
 
-<!DOCTYPE html>
+
+<!DOCTYPE html>                                                 
 <html>
   <head>
 	<meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta name="viewport" content="initial-scale=1.0, maximum-scale=2.0">
 	
 	<script type="text/javascript" src="../jquery-3.4.1.js"></script>
-	<script type="text/javascript" src="bootstrap/js/bootstrap.js"></script>
-	<link  href="bootstrap/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+	<script type="text/javascript" src="../bootstrap/js/bootstrap.js"></script>
+	<link  href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
 	<link href="logincss.css" rel="stylesheet">
   </head>
   <body>
+  <script>
   
   
-<script>
-var str="";
-$(document).ready(function(){
-		// créations des listes déroulantes des différents films, salles et genres
+	function getProjections(){
+		var str="";
 		$.ajax({
                 url: 'gestionAdmin.php',
                 type:'POST',
                 data:
                 {
-                    myFunction:'get_films',
+                    myFunction:'get_projections',
                     myParams:{
                         
                     }
@@ -48,45 +50,24 @@ $(document).ready(function(){
 				
                 success: function(data)
                 {
-					str+="<label>Choix du film</label><br/><select name='films' id='film-select'>";
-                    for(var i in data){
-						str+="<option value='"+data[i].titre+"'>"+data[i].titre+"</option>";	
+					str+="<div class='table-responsive-sm' id='getTableProjection'><table class='table table-hover'><thead><tr><th scope='col'>Titre du film</th><th scope='col'>Date de la séance</th><th scope='col'>Genre de la séance</th><th scope='col'>Salle</th><th scope='col'>Supprimer</th></tr></thead><tbody>";
+					for(var i in data){
+						str+="<tr><th scope='row'>"+data[i].titre+"</th><td>"+data[i].horaire+"</td><td>"+data[i].genre+"</td><td>"+data[i].salle+"</td>";
+						str+="<td><button type='submit' class='btn-supprimer-projection btn-info' data-horaire='" + data[i].horaire + "' data-salle='"+  data[i].salle +"' >Supprimer</button></td></tr>";
 					}
-					str+="</select>";
-					$("#getFilms").html(str);
+					str+="</tbody></div>";
                 },
 				error : function(resultat, statut, erreur){
 					alert( "error détectée:" + resultat.responseText);
 				}
         });
-		str="";
-		$.ajax({
-                url: 'gestionAdmin.php',
-                type:'POST',
-                data:
-                {
-                    myFunction:'get_Salles',
-                    myParams:{
-                        
-                    }
-                },
-				async:false,  
-				dataType: "json",
-				
-                success: function(data)
-                {
-					str+="<label>Choix de la salle</label><br/><select name='salles' id='salles-select'>";
-                    for(var i in data){
-						str+="<option value='"+data[i].idSalle+"'>"+data[i].idSalle+"</option>";	
-					}
-					str+="</select>";
-					$("#getSalles").html(str);
-                },
-				error : function(resultat, statut, erreur){
-					alert( "error détectée:" + resultat.responseText);
-				}
-        });
-		str="";
+		return str;
+		
+		
+	};
+	
+	function getGenres(){
+		var str="";
 		$.ajax({
                 url: 'gestionAdmin.php',
                 type:'POST',
@@ -102,107 +83,272 @@ $(document).ready(function(){
 				
                 success: function(data)
                 {
-					str+="<label>Choix du genre de la séance</label><br/><select name='genres' id='genres-select'>";
-                    for(var i in data){
-						str+="<option value='"+data[i].libelle+"'>"+data[i].libelle+"</option>";	
+					str+="<div class='table-responsive-sm' id='getTableGenres'><table class='table table-hover'><thead><tr><th scope='col'>id genre</th><th scope='col'>Libelle</th><th scope='col'>Supprimer</th></tr></thead><tbody>";
+					for(var i in data){
+						str+="<tr><th scope='row'>"+data[i].idGenre+"</th><td>"+data[i].libelle+"</td>";
+						str+="<td><button type='submit' class='btn-supprimer-genre btn-info' data-id='" + data[i].idGenre+"' >Supprimer</button></td></tr>";
 					}
-					str+="</select>";
-					$("#getGenres").html(str);
+					str+="</tbody></div>";
                 },
 				error : function(resultat, statut, erreur){
 					alert( "error détectée:" + resultat.responseText);
 				}
         });
+		return str;
 		
 		
-		$("#ajoutF").click(function(event) {	
+	};
+	
+	function getFilms(){
+		var str="";
+		$.ajax({
+                url: 'gestionAdmin.php',
+                type:'POST',
+                data:
+                {
+                    myFunction:'get_films',
+                    myParams:{
+                        
+                    }
+                },
+				async:false,  
+				dataType: "json",
+				
+                success: function(data)
+                {
+					str+="<div class='table-responsive-sm' id='getTableFilms'><table class='table table-hover'><thead><tr><th scope='col'>Titre</th><th scope='col'>date de sortie</th><th scope='col'>durée</th><th scope='col'>Supprimer</th></tr></thead><tbody>";
+					for(var i in data){
+						str+="<tr><th scope='row'>"+data[i].titre+"</th><td>"+data[i].dateSortie+"</td><td>"+data[i].duree+"</td>";
+						str+="<td><button type='submit' class='btn-supprimer-film btn-info' data-id='" + data[i].idFilm+"'>Supprimer</button></td></tr>";
+					}
+					str+="</tbody></div>";
+                },
+				error : function(resultat, statut, erreur){
+					alert( "error détectée:" + resultat.responseText);
+				}
+        });
+		return str;
+		
+		
+	};
+	
+	function getSalles(){
+		var str="";
+		$.ajax({
+                url: 'gestionAdmin.php',
+                type:'POST',
+                data:
+                {
+                    myFunction:'get_salles',
+                    myParams:{
+                        
+                    }
+                },
+				async:false,  
+				dataType: "json",
+				
+                success: function(data)
+                {
+					str+="<div class='table-responsive-sm' id='getTableFilms'><table class='table table-hover'><thead><tr><th scope='col'>Id de la salle</th><th scope='col'>capacite</th><th scope='col'>Supprimer</th></tr></thead><tbody>";
+					for(var i in data){
+						str+="<tr><th scope='row'>"+data[i].idSalle+"</th><td>"+data[i].capacite+"</td>";
+						str+="<td><button type='submit' class='btn-supprimer-salle btn-info' data-id='" + data[i].idSalle+"'>Supprimer</button></td></tr>";
+					}
+					str+="</tbody></div>";
+                },
+				error : function(resultat, statut, erreur){
+					alert( "error détectée:" + resultat.responseText);
+				}
+        });
+		return str;
+		
+		
+	};
+	
+	/* ************************************************************** */ 
+	
+	$(document).ready(function(){
+		
+		var projections=getProjections();
+		$("#tableProjections").html(projections);
+		
+		var genres=getGenres();
+		$("#tableGenres").html(genres);
+		
+		var films=getFilms();
+		$("#tableFilms").html(films);
+		
+		var salles=getSalles();
+		$("#tableSalles").html(salles);
+	
+		/* SUPPRIMER UNE PROJECTION */ 
+		$(".btn-supprimer-projection").click(function(event) {
+			horaireProj=$(this).data("horaire");
+			salle = $(this).data("salle");
+			$(this).parents("tr").remove();
+			
 			$.ajax({
                 url: 'gestionAdmin.php',
                 type:'POST',
                 data:
                 {
-                    myFunction:'ajout_film',
+                    myFunction:'supprimer_projection',
                     myParams:{
-                        libelle:$('input[name=libelle]').val(),
-						duree:$('input[name=duree]').val(),
-						description:$('input[name=description]').val(),
-						sortie:$('input[name=sortie]').val()
+                        horaire:horaireProj,
+						salle:salle
+                    }
+				},
+                success: function(){
+				
+				},
+				error : function(resultat, statut, erreur){
+					alert( "error détectée:" + resultat.responseText);
+				}
+			})
+		});
+		
+		/*  SUPPRIMER UN GENRE */ 
+		$(".btn-supprimer-genre").click(function(event) {
+			id=$(this).data("id");
+			$(this).parents("tr").remove();
+			
+			$.ajax({
+                url: 'gestionAdmin.php',
+                type:'POST',
+                data:
+                {
+                    myFunction:'supprimer_genre',
+                    myParams:{
+                        idGenre:id
                     }
                 },
-				
-                success: function()
-                {
-					
+                success: function(){
 					alert("ok");
-					
-                },
+				},
+				
 				error : function(resultat, statut, erreur){
-					alert( "error détectée:" + erreur.responseText);
+					alert( "error détectée:" + resultat.responseText);
 				}
-			});
-		
+			})
 		});
-});
-</script>
-
-    <div class="success">
-    <!--<h1>Bienvenue <?php echo $_SESSION['username']; ?>!</h1>-->
-	
-	<div class="container-sm"> 
-		<div class="nav sticky-top navbar-light bg-light">
+		
+		/*   SUPPRIMER UN FILM */ 
+		$(".btn-supprimer-film").click(function(event) {
+			id=$(this).data("id");
+			$(this).parents("tr").remove();
+			
+			$.ajax({
+                url: 'gestionAdmin.php',
+                type:'POST',
+                data:
+                {
+                    myFunction:'supprimer_film',
+                    myParams:{
+                        idFilm:id
+                    }
+                },
+                success: function(){
+					
+				},
+				
+				error : function(resultat, statut, erreur){
+					alert( "error détectée:" + resultat.responseText);
+				}
+			})
+		});
+		
+		/* Supprimer UNE SALLE */ 
+		$(".btn-supprimer-salle").click(function(event) {
+			id=$(this).data("id");
+			$(this).parents("tr").remove();
+			
+			$.ajax({
+                url: 'gestionAdmin.php',
+                type:'POST',
+                data:
+                {
+                    myFunction:'supprimer_salle',
+                    myParams:{
+                        idSalle:id
+                    }
+                },
+                success: function(){
+					alert("ok");
+				},
+				
+				error : function(resultat, statut, erreur){
+					alert( "error détectée:" + resultat.responseText);
+				}
+			})
+		});
+		
+		
+		/* REDIRECTIONS POUR LES AJOUTS */ 
+		$("#ajoutProjection").click(function(event) {
+			window.location.replace("ajoutProjection.html");
+		});
+		
+		$("#ajoutFilm").click(function(event) {
+			window.location.replace("ajoutFilm.html");
+		});
+		
+		$("#ajoutGenre").click(function(event) {
+			window.location.replace("ajoutGenre.html");
+		});
+		
+		$("#ajoutSalle").click(function(event) {
+			window.location.replace("ajoutSalle.html");
+		});
+		
+	});
+  
+  
+  
+  </script>
+  <div class="container-sm"> 
+    <div class="nav sticky-top navbar-light bg-light">
 			<ul class="nav nav-tabs " id="myTab" role="tablist">
 				<li class="nav-item">
-					<a class="nav-link active" id="home-tab" data-toggle="tab" href="#ajoutProjection" role="tab" aria-controls="home" aria-selected="false">Ajouter une projection</a>
+					<a class="nav-link active" id="home-tab" data-toggle="tab" href="#projection" role="tab" aria-controls="home" aria-selected="false">Projections</a>
 				</li>
 				<li class="nav-item">
-					<a class="nav-link" id="projection-tab" data-toggle="tab" href="#ajoutFilm" role="tab" aria-controls="projection" aria-selected="true">Ajouter un film</a>
+					<a class="nav-link" id="projection-tab" data-toggle="tab" href="#film" role="tab" aria-controls="projection" aria-selected="true">Films</a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link" id="genre-tab" data-toggle="tab" href="#genre" role="tab" aria-controls="genre" aria-selected="true">Genres</a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link" id="genre-tab" data-toggle="tab" href="#salle" role="tab" aria-controls="genre" aria-selected="true">Salles</a>
 				</li>
 			</ul>
-		</div>
+	</div>
+	
+	
+	<div class="tab-content">
 		
-		
-		<div class="tab-content">
-		
-			<div class="tab-pane active" id="ajoutProjection" role="tabpanel" aria-labelledby="home-tab">
-				
-					<div id="getFilms"></div>
-					<div id="getSalles"></div>
-					<div id="getGenres"></div>
-					
-					<label>Date et heure de la séance</label><br/>
-					<input type='date'  required pattern='[0-9]{4}-[0-9]{2}-[0-9]{2}'/>
-					<input type='time'  required />
-					
-					<input  value="Valider " id="ajoutProj" name="submit" class="box-button btn btn-primary">
+			<div class="tab-pane active" id="projection" role="tabpanel" aria-labelledby="home-tab">
+				<div id="tableProjections"></div>
+				<button id="ajoutProjection" class="btn-info">Ajouter une projection</button>
 			</div>
+			<div class="tab-pane " id="film" role="tabpanel" aria-labelledby="home-tab">
 			
-			<div class="tab-pane" id="ajoutFilm" role="tabpanel" aria-labelledby="projection-tab">
-				<form class="box container-sm sm-1" action="" method="post" name="ajoutFilm">
-				
-					<label>Libelle du film</label>
-					<input type='text' class="box-input form-control" name="libelle" placeholder="Libelle du film" required></input>
-					
-					<label>Date de sortie</label>
-					<input type='date'  name="sortie" required pattern='[0-9]{4}-[0-9]{2}-[0-9]{2}'/><br/>
-					
-					<label>Durée du film</label>
-					<input type='number' class="box-input form-control" name="duree" placeholder="Durée du film (en sec)" required></input>
-					
-					<label>Description</label>
-					<input type='text'  class="box-input form-control" name="description" placeholder="Description du film" required></input><br/>
-					
-					<input type="submit" value="Valider " name="submit"id="ajoutF" class="box-button btn btn-primary">
-				</form>
+				<div id="tableFilms"></div>
+				<button id="ajoutFilm" class="btn-info">Ajouter un film</button>
 			</div>
-		</div>
-    </div>
-		
-	
-	
-	<label></label>
-	
-	<br/>
-    <a href="logout.php">Déconnexion</a>
-    </div>
-  </body>
+			<div class="tab-pane " id="genre" role="tabpanel" aria-labelledby="home-tab">
+				<div id="tableGenres"></div>
+				<button id="ajoutGenre" class="btn-info">Ajouter un genre de projection</button>
+			</div>
+			<div class="tab-pane " id="salle" role="tabpanel" aria-labelledby="home-tab">
+				<div id="tableSalles"></div>
+				<button id="ajoutSalle" class="btn-info">Ajouter une salle</button>
+			</div>
+	</div>
+  </div>
+  
+  
+   </body>
 </html>
+  
+  
+  

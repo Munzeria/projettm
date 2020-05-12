@@ -185,6 +185,7 @@ $bdd=connectDB("localhost","cinema","root","");
 		$(".btn-supprimer-projection").click(function(event) {
 			horaireProj=$(this).data("horaire");
 			salle = $(this).data("salle");
+			$(this).parents("tr").remove();
 			
 			$.ajax({
                 url: 'gestionAdmin.php',
@@ -198,8 +199,6 @@ $bdd=connectDB("localhost","cinema","root","");
                     }
 				},
                 success: function(){
-					
-					// $("#getTableProjection .btn-supprimer-projection").closest("tr").remove();
 				
 				},
 				error : function(resultat, statut, erreur){
@@ -211,7 +210,7 @@ $bdd=connectDB("localhost","cinema","root","");
 		/*  SUPPRIMER UN GENRE */ 
 		$(".btn-supprimer-genre").click(function(event) {
 			id=$(this).data("id");
-			
+			$(this).parents("tr").remove();
 			
 			$.ajax({
                 url: 'gestionAdmin.php',
@@ -236,7 +235,7 @@ $bdd=connectDB("localhost","cinema","root","");
 		/*   SUPPRIMER UN FILM */ 
 		$(".btn-supprimer-film").click(function(event) {
 			id=$(this).data("id");
-			
+			$(this).parents("tr").remove();
 			
 			$.ajax({
                 url: 'gestionAdmin.php',
@@ -249,7 +248,7 @@ $bdd=connectDB("localhost","cinema","root","");
                     }
                 },
                 success: function(){
-					alert("ok");
+					
 				},
 				
 				error : function(resultat, statut, erreur){
@@ -261,7 +260,7 @@ $bdd=connectDB("localhost","cinema","root","");
 		/* Supprimer UNE SALLE */ 
 		$(".btn-supprimer-salle").click(function(event) {
 			id=$(this).data("id");
-			
+			$(this).parents("tr").remove();
 			
 			$.ajax({
                 url: 'gestionAdmin.php',

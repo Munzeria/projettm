@@ -21,12 +21,15 @@
                 {
                     myFunction:'ajout_salle',
                     myParams:{
-                        capacite:$('input[name=capacite]').val()
+                        capacite:$('input[name=capacite]').val(),
+						numeroSalle:$('input[name=num]').val()
                     }
                 },
-				
-                success: function()
-                {
+				async:false,				
+                success: function(data)
+                {	
+					alert(data);
+					if(data="false") alert("ok");
 					window.location.replace("tableauAdmin.php");
                 },
 				error : function(resultat, statut, erreur){
@@ -43,8 +46,9 @@
 	</script>
 	<input value="Retour" id="retour" class=" btn"/>	
 	<div class="container-sm"> 
-		<label>Capacité de la nouvelle salle</label>
-		<input type='number' class="box-input form-control" name="capacite" placeholder="Capacité de la salle" required></input>
+	
+		<label>Numéro de la salle</label>
+		<input type='number' class="box-input form-control" name="num" placeholder="Numéro de la salle" required></input>
 		
 		<label>Capacité de la nouvelle salle</label>
 		<input type='number' class="box-input form-control" name="capacite" placeholder="Capacité de la salle" required></input>

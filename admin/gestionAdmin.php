@@ -105,11 +105,27 @@ function ajout_genre($data){
 }
 
 function ajout_salle($data){
+	$salle=$data['myParams']['numeroSalle'];
 	$capacite=$data['myParams']['capacite'];
+	
 	$bdd=connectDB("localhost","cinema","root","");
-	$req="insert into salle(capacite) values ('$capacite')";
-	writeDB($bdd,$req);
+	
+	
+	$req="select count(*) as 'test' from salle where idSalle='$salle'";
+	$result=traitementReadDB($bdd,$req);
+	
+	if($result['test']==0){
+		$req="insert into salle(idSalle,capacite) values ('$salle','$capacite')";
+		writeDB($bdd,$req);
+		echo 'true';
+	}
+	else{
+		echo 'false';
+	}
+	
 }
+
+
 
 
 function get_projections(){

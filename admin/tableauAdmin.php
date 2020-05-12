@@ -248,7 +248,7 @@ $bdd=connectDB("localhost","cinema","root","");
                     }
                 },
                 success: function(){
-					
+					//alert
 				},
 				
 				error : function(resultat, statut, erreur){
@@ -273,7 +273,7 @@ $bdd=connectDB("localhost","cinema","root","");
                     }
                 },
                 success: function(){
-					alert("ok");
+					//alert
 				},
 				
 				error : function(resultat, statut, erreur){

@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<meta name="viewport" content="initial-scale=1.0, maximum-scale=2.0">
+		
+		<script type="text/javascript" src="../jquery-3.4.1.js"></script>
+		<script type="text/javascript" src="../bootstrap/js/bootstrap.js"></script>
+		<link  href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
+	</head>
+	<body>
+	
+	<script>
+	$(document).ready(function(){
+		$("#ajoutSalle").click(function(event) {	
+			$.ajax({
+                url: 'gestionAdmin.php',
+                type:'POST',
+                data:
+                {
+                    myFunction:'ajout_salle',
+                    myParams:{
+                        capacite:$('input[name=capacite]').val()
+                    }
+                },
+				
+                success: function()
+                {
+					window.location.replace("tableauAdmin.php");
+                },
+				error : function(resultat, statut, erreur){
+					alert( "error détectée:" + erreur.responseText);
+				}
+			});
+		
+		});
+		
+		$("#retour").click(function(event) {	
+			window.location.replace("tableauAdmin.php");
+		});
+	});
+	</script>
+	<input value="Retour" id="retour" class=" btn"/>	
+	<div class="container-sm"> 
+		<label>Capacité de la nouvelle salle</label>
+		<input type='number' class="box-input form-control" name="capacite" placeholder="Capacité de la salle" required></input>
+		
+		<label>Capacité de la nouvelle salle</label>
+		<input type='number' class="box-input form-control" name="capacite" placeholder="Capacité de la salle" required></input>
+		<input  value="Valider" id="ajoutSalle" class=" btn btn-primary"/>
+	</div>
+	</body>
+	
+	
+</html>

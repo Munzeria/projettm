@@ -3,8 +3,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<meta charset="utf-8" name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
 	
 	<script type="text/javascript" src="../jquery-3.4.1.js"></script>
 	<script type="text/javascript" src="bootstrap/js/bootstrap.js"></script>
@@ -13,7 +12,7 @@
 </head>
 <body>
 <?php
-$conn = mysqli_connect('localhost', 'root', '', 'registration');
+$conn = mysqli_connect('localhost', 'root', '', 'cinema');
 session_start();
 
 if (isset($_POST['username']) && isset($_POST['password']) ){

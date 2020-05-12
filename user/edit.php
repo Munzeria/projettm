@@ -35,13 +35,13 @@
 </head>
 <body>
 	<?php
-
 		include '../connexion.php';
 		$conn = connectDB("localhost","cinema","root","");
 			$free['free']=1;
 			if (isset($_POST['username'])){
+				$oldUser = $_SESSION["username"];
 				$username=$_POST['username'];
-				$free = traitementReadDB($conn,"select count(*) as 'free' from userInformation where username='$username'");
+				$free = traitementReadDB($conn,"select count(*) as 'free' from userInformation where username='$username' and username<>'$oldUser'");
 			}
 		if ($free['free']==0){
 			$username=$_POST['username'];
@@ -54,15 +54,14 @@
 			$telephone=$_POST['telephone'];
 			$oldUser = $_SESSION["username"];
 
-			$req ="update set username='$username', password='$password', nom='$nom', prenom='$prenom', addresse='$adresse', cp='$codepostal', ville='$ville', tel='$telephone' where username='$oldUser'"; 
+			$req ="update userInformation set username='$username', password='".hash('sha256', $password)."', nom='$nom', prenom='$prenom', addresse='$adresse', cp='$codepostal', ville='$ville', tel='$telephone' where username='$oldUser'"; 
 			// Exécuter la requête sur la base de données
 			$res = writeDB($conn,$req);
 			
 			if($res){
-				echo "<div class='sucess'>
-				<h3>Vous êtes inscrit avec succès.</h3>
-				<p>Cliquez ici pour vous <a href='login.php'>connecter</a></p>
-				</div>";
+				$_SESSION['username'] = $username;
+				header("Location: ../index.php");
+				echo "<script>window.location.assign('..')</script>";
 			}
 		}else{
 	?>
@@ -86,10 +85,13 @@
 		<input type="tel" id="inputTelephone" class="box-input form-control" name="telephone" placeholder="Téléphone" pattern="^((\+\d{1,3}(-| )?\(?\d\)?(-| )?\d{1,5})|(\(?\d{2,6}\)?))(-| )?(\d{3,4})(-| )?(\d{4})(( x| ext)\d{1,5}){0,1}$" required onkeyup="MaxLengthText(this,50);">
 		
 		
-	   <div class="container form-inline"><input type="button" value="Retour" name="retour" class="box-button btn btn-primary" onclick="window.location.assign('..');"> <input type="submit" value="Inscription" name="submit" class="box-button btn btn-primary"><div id="alert"></div></div>
+	   <div class="container form-inline"><input type="button" value="Retour" name="retour" class="box-button btn btn-primary" onclick="window.location.assign('..');"> <input type="submit" value="Valider" name="submit" class="box-button btn btn-primary"><div id="alert"></div></div>
 	</form>
 
 	<?php
+		$oldUser = $_SESSION["username"];
+		$data =  traitementReadDB($conn,"select * from userInformation where username='$oldUser'");
+		echo "<script>setValues('$data[username]','$data[prenom]','$data[nom]','$data[addresse]','$data[ville]','$data[cp]','$data[tel]');</script>";
 	if (isset($_POST['username'])){
 		$username=$_POST['username'];
 		$prenom=$_POST['prenom'];

@@ -326,6 +326,16 @@ if(!isset($_SESSION["usernameAdmin"])){
 					window.location.replace("ajoutSalle.php");
 				});
 				
+				/*	DISCONNECT	*/
+				$("#disconnect").click(function(event){
+					$.ajax({
+						url: 'logout.php',
+						success: function(){
+							window.location.replace("tableauAdmin.php");
+						}
+					})
+				});
+				
 			});
 		</script>
 		
@@ -335,7 +345,7 @@ if(!isset($_SESSION["usernameAdmin"])){
 			
 				<span class="navbar-brand mb-0 h1">Gestion administrateur</span>
 				
-				<ul class="nav nav-tabs " id="myTab" role="tablist">
+				<ul class="nav nav-tabs" id="myTab" role="tablist">
 					<li class="nav-item">
 						<a class="nav-link active" id="home-tab" data-toggle="tab" href="#projection" role="tab" aria-controls="home" aria-selected="false">Projections</a>
 					</li>
@@ -349,6 +359,9 @@ if(!isset($_SESSION["usernameAdmin"])){
 						<a class="nav-link" id="genre-tab" data-toggle="tab" href="#salle" role="tab" aria-controls="genre" aria-selected="true">Salles</a>
 					</li>
 				</ul>
+				
+				<input value="Déconnexion" id="disconnect" class="nav btn btn-sm btn-outline-danger ml-auto">
+				
 			</div>
 	
 			<div class="tab-content">

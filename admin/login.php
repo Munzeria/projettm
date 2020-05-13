@@ -25,10 +25,14 @@ if (isset($_POST['username']) && isset($_POST['password']) ){
 	  $_SESSION['usernameAdmin'] = $username;
 	  header("Location: index.php");
 	}
+	else{
+		$_GET['error']=true;
+	}
 }
 ?>
 	<body>
 		<div class="container-fluid">
+			
 			<div class="nav sticky-top navbar-light bg-light">
 				<span class="navbar-brand mb-0 h1">Gestion administrateur</span>
 			</div>
@@ -36,6 +40,12 @@ if (isset($_POST['username']) && isset($_POST['password']) ){
 			<div class="d-flex justify-content-center align-items-center">
 				<form class="box form-signin" action="" method="post" name="login">
 				
+					<?php
+						if(isset($_GET['error']) && $_GET['error']=true){
+							echo "<div id='alert' class='alert alert-danger'>Nom d'utilisateur ou mot de passe incorrect !</div>";
+						}
+					?>
+					
 					<label for="inputUsername" class="my-3">Nom d'utilisateur</label>
 					<input type="text" id="inputUsername" class="box-input form-control" name="username" placeholder="Nom d'utilisateur" required>
 					

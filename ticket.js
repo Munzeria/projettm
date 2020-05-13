@@ -221,7 +221,7 @@ function getProjection()
 						// data-titre permet de stocker le nom du film auquel appartient le bouton pour le récupérer plus tard etc 
 						for(var j in horaireSplit){
 							str+="<br>"+genreSplit[j]+"<br>";
-							str+="<button type='submit' class='btn-validation btn-info'  data-titre='" + data[i].titre + "' data-horaire='" + horaireSplit[j] + "' data-genre='" + idGenreSplit[j] + "' data-salle='"+ idSalleSplit[j] +"' >"+horaireSplit[j]+"</button><br>";
+							str+="<button type='submit' class='btn btn-validation btn-info'  data-titre='" + data[i].titre + "' data-horaire='" + horaireSplit[j] + "' data-genre='" + idGenreSplit[j] + "' data-salle='"+ idSalleSplit[j] +"' >"+horaireSplit[j]+"</button><br>";
 							
 						}
 						

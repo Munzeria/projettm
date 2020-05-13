@@ -51,12 +51,14 @@
 							print "<a class='nav-link' href='user/loginUser.php'>Connexion</a>";
 						}
 						else{
-							//print "<div >Bienvenue, <a href=''>" . $_SESSION['username'] . "</a> - <a href='user/logout.php'>déconnexion</a></div>";
 							print "<div class='dropdown-menu-right'>"
 									. "<button class='btn btn-link dropdown-toggle' type='button' id='dropdownMenuButton' data-toggle='dropdown' aria-haspopup='true' aria-expanded='false'>"
-									. $_SESSION['username']
+									.$_SESSION['username']
 									. "</button>"
 									."<div class='dropdown-menu dropdown-menu-right' aria-labelledby='dropdownMenuButton'>"
+										."<a class='dropdown-item disabled'>Balance : <script>document.write(getMoney());</script>€</a>"
+										."<div class='dropdown-divider'></div>"
+										."<a class='dropdown-item' href='user/money.php'>Approvisionner</a>"
 										."<a class='dropdown-item' href='user/edit.php'>Profil</a>"
 										."<a class='dropdown-item' href='user/ticketList.php'>Tickets</a>"
 										."<a class='dropdown-item' href='user/logout.php'>Déconnexion</a>"

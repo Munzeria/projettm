@@ -1,4 +1,3 @@
-
 <?php
 		session_start();
 ?>
@@ -70,18 +69,32 @@
 					window.location.replace("../index.php");
 				});
 				
+				$("#retour").click(function(event) {	
+					window.location.replace("../index.php");
+				});
+				
 				
 			});
+			
 	</script>
 		
 	</head>
 	
 	<body>
-		<div class="box container-sm sm-1 form-signin">
-			
-			<label for="inputAmount">Montant</label>
-			<input type="number" id="inputAmount" class="box-input form-control" name="amount" placeholder="Montant" required>
-			<input type="submit" value="Valider " id="submit" class="box-button btn btn-primary">
+	
+		<div class="container-sm">
+	
+			<nav class="navbar navbar-light bg-light">
+				<span class="navbar-brand mb-0 h1">Approvisionner le porte-monnaie</span>
+				<input value="Retour" id="retour" class="btn btn-sm btn-secondary">	
+			</nav>
+		
+			<div class="box sm-1 form-signin m-2 p-2">
+				
+				<label class="" for="inputAmount">Montant</label>
+				<input type="number" id="inputAmount" class="box-input form-control" name="amount" placeholder="Montant" required>
+				<input type="submit" value="Valider " id="submit" class="box-button btn btn-success align-right">
+			</div>
 		</div>
 	</body>
 </html>

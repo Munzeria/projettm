@@ -137,6 +137,8 @@ function getTicketAmount(){
 
 function getMoney(){
 	
+	getUser();
+	
 	var nb=0;
 	
 	$.ajax({

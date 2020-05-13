@@ -3,12 +3,19 @@
 
 include '../connexion.php';
 
+$bdd=connectDB("localhost","cinema","root",""); 
+
+session_start();
+  if(!isset($_SESSION["usernameAdmin"])){
+    header("Location: login.php");
+    exit(); 
+  }
+
 if (isset($_REQUEST['myFunction']) && $_REQUEST['myFunction'] != '')
 {
     $_REQUEST['myFunction']($_REQUEST);
 
 }
-
 
 function get_films()
 {	

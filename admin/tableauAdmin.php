@@ -9,12 +9,11 @@ $bdd=connectDB("localhost","cinema","root","");
   // Initialiser la session
   session_start();
   // Vérifiez si l'utilisateur est connecté, sinon redirigez-le vers la page de connexion
-  if(!isset($_SESSION["username"])){
+  if(!isset($_SESSION["usernameAdmin"])){
     header("Location: login.php");
     exit(); 
   }
 ?>
-
 
 <!DOCTYPE html>                                                 
 <html>
@@ -169,6 +168,27 @@ $bdd=connectDB("localhost","cinema","root","");
 	
 	$(document).ready(function(){
 		
+		$.ajax({
+			url: 'gestionAdmin.php',
+			type:'POST',
+			data:
+			{
+				myFunction:'connexionUser',
+				myParams:{
+					
+				}
+			},
+			async:false, 				
+			success: function(){
+				
+			},
+			error : function(resultat, statut, erreur){
+					alert( "error détectée:" + resultat.responseText);
+			}
+		});
+			
+			
+		
 		var projections=getProjections();
 		$("#tableProjections").html(projections);
 		
@@ -306,6 +326,7 @@ $bdd=connectDB("localhost","cinema","root","");
   
   </script>
   <div class="container-sm"> 
+	<a href='logout.php'>Se déconnecter</a>
     <div class="nav sticky-top navbar-light bg-light">
 			<ul class="nav nav-tabs " id="myTab" role="tablist">
 				<li class="nav-item">

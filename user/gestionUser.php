@@ -47,7 +47,7 @@
 		writeDB($bdd,$req);
 	}
 	
-	function getTicketUser($data){
+	function getTicketsUser($data){
 		$username=$data['myParams']['username'];
 
 		$bdd = connectDB("localhost","cinema","root","");

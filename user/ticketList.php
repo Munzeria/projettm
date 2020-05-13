@@ -21,7 +21,7 @@
 					type:'POST',
 					data:
 					{
-						myFunction:'getTicketUser',
+						myFunction:'getTicketsUser',
 						myParams:{
 							username:user
 						}
@@ -34,7 +34,7 @@
 						str+="<div class='table-responsive-sm' id='getTableTickets'><table class='table table-hover'><thead><tr><th scope='col'>Horaire</th><th scope='col'>Film</th><th scope='col'>salle</th><th scope='col'>Genre</th><th scope='col'>Tarif</th><th scope='col'>Editer ticket</th></tr></thead><tbody>";
 						for(var i in data){
 							str+="<tr><th scope='row'>"+data[i].horaire+"</th><td>"+data[i].film+"</td><td>"+data[i].salle+"</td><td>"+data[i].genre+"</td><td>"+data[i].tarif+"</td>";
-							str+="<td><button type='submit' class='btn-editer btn-info' data-id='" + data[i].id+"'>Editer PDF</button></td></tr>";
+							str+="<td><button type='submit' class='btn-editer btn-info' data-id='" + data[i].id+"'>Editer</button></td></tr>";
 						}
 						str+="</tbody></div>";
 					},
@@ -71,13 +71,15 @@
 			// à régler
 			$(".btn-editer").click(function(event) {
 				var id=$(this).data("id");
-				alert("ok");
+				
 				$.ajax({
 					url: '../generateTicket.php',
 					type:'POST',
 					data:"idTicket="+id,
-					success: function(){
-						alert("success");
+					async:false,
+					success: function(data){
+						alert(data);
+						
 					},
 					
 					error : function(resultat, statut, erreur){

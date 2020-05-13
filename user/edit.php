@@ -38,7 +38,7 @@
 				async:false, 				
                 success: function(str)
                 {
-					user=str;
+					
 					// display the informations of the current user
 					$.ajax({
 						url: 'gestionUser.php',

@@ -1,3 +1,18 @@
+<?php
+
+ include '../connexion.php';
+
+ // appel de la méthode de connexion contenue dans "connexion.php"
+$bdd=connectDB("localhost","cinema","root",""); 
+  // Initialiser la session
+  session_start();
+  // Vérifiez si l'utilisateur est connecté, sinon redirigez-le vers la page de connexion
+  if(!isset($_SESSION["usernameAdmin"])){
+    header("Location: login.php");
+    exit(); 
+  }
+?>
+
 <!DOCTYPE html>
 <html>
 	<head>

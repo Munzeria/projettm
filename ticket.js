@@ -307,6 +307,8 @@ function getProjection()
 						
 						if(retour[0].nbTicketAvailable>=getTicketAmount()){
 							if(getMoney()>=totalTickets()){
+								$("#valider").hide();
+								$("#wait").show();
 								validerAchat(horaire, salle, user,totalTickets());
 							}else{
 								window.location.assign("user/money.php");

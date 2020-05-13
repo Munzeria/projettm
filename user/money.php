@@ -93,7 +93,7 @@
 				
 				<label class="" for="inputAmount">Montant</label>
 				<input type="number" id="inputAmount" class="box-input form-control" name="amount" placeholder="Montant" required>
-				<input type="submit" value="Valider " id="submit" class="box-button btn btn-success align-right">
+				<input type="submit" value="Valider " id="submit" class="box-button btn btn-success">
 			</div>
 		</div>
 	</body>

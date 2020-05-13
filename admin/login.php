@@ -43,8 +43,6 @@ if (isset($_POST['username']) && isset($_POST['password']) ){
 					<input type="password" id="inputPassword" class="box-input form-control" name="password" placeholder="Mot de passe" required>
 					
 					<input type="submit" value="Connexion " name="submit" class="box-button btn btn-primary m-3 float-right">
-					
-					<p class="box-register my-3 p-1 text-nowrap"><a href="register.php">S'inscrire</a></p>
 				
 				<?php if (! empty($message)) { ?>
 					<p class="errorMessage"><?php echo $message; ?></p>

@@ -143,7 +143,7 @@ function getProjection()
 				
 			  return str; 
 		};
-		
+
 		$(document).ready(function(){
 		
 			
@@ -222,4 +222,34 @@ function getProjection()
 				$("#table").children("#getTable").remove();
 				$("#afficher").show();
 			});
+			
+			
+			function validation(){
+				$.ajax(
+				{	
+					method: "POST",
+					url: "validerCommande",
+					data: "horaire="+horaire+"&salle="+salle,  
+					dataType: "json",
+					success : function(retour, statut){
+						if(getTicketAmount()==0){
+							alert("Commande impossible, il est impossible de commander 0 ticket !");
+							return;
+						}
+						
+						if(retour[0].nbTicketAvailable>=getTicketAmount()){
+							//Valider commande
+						}else{
+							alert("Commande impossible, il ne reste que "+retour[0].nbTicketAvailable+" disponible.");
+						}
+					},
+					
+					error : function(resultat, statut, erreur){
+						alert( "error détectée:" + erreur.responseText);
+					}
+				})
+				
+				
+				
+			};
 });

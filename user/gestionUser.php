@@ -47,7 +47,7 @@
 		writeDB($bdd,$req);
 	}
 	
-	function getTicketUser($data){
+	function getTicketsUser($data){
 		$username=$data['myParams']['username'];
 
 		$bdd = connectDB("localhost","cinema","root","");
@@ -56,6 +56,14 @@
 		readDB($bdd,$req);	
 
 	}
+	
+	function addMoney($data){
+		$username=$data['myParams']['username'];
+		$argent=$data['myParams']['argent'];
 
-
+		$bdd = connectDB("localhost","cinema","root","");
+		
+		$req="update userInformation set argent=argent+'$argent' where username='$username'";
+		writeDB($bdd,$req);
+	}
 ?>

@@ -3,11 +3,13 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<meta charset="utf-8" name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
+	<meta charset="utf-8"/>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta name="viewport" content="initial-scale=1.0, maximum-scale=2.0"/>
 	
 	<script type="text/javascript" src="../jquery-3.4.1.js"></script>
-	<script type="text/javascript" src="bootstrap/js/bootstrap.js"></script>
-	<link  href="bootstrap/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+	<script type="text/javascript" src="../bootstrap/js/bootstrap.js"></script>
+	<link  href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
 	<link href="logincss.css" rel="stylesheet">
 </head>
 <body>
@@ -24,7 +26,7 @@ if (isset($_POST['username']) && isset($_POST['password']) ){
 	$rows = mysqli_num_rows($result);
   
 	if($rows==1){
-	  $_SESSION['username'] = $username;
+	  $_SESSION['usernameAdmin'] = $username;
 	  header("Location: tableauAdmin.php");
 	}
 	

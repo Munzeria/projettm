@@ -2,7 +2,7 @@
 include '../connexion.php';
 
 // appel de la méthode de connexion contenue dans "connexion.php"
-$bdd=connectDB("localhost","cinema","root",""); 
+$bdd=connectDB("localhost","cinema","root","");
 // Initialiser la session
 session_start();
 // Vérifiez si l'utilisateur est connecté, sinon redirigez-le vers la page de connexion
@@ -149,8 +149,27 @@ if(!isset($_SESSION["username"])){
 			};
 	
 /* ************************************************************** */ 
-	
+
 			$(document).ready(function(){
+		
+				$.ajax({
+					url: 'gestionAdmin.php',
+					type:'POST',
+					data:
+					{
+						myFunction:'connexionUser',
+						myParams:{
+							
+						}
+					},
+					async:false, 				
+					success: function(){
+						
+					},
+					error : function(resultat, statut, erreur){
+							alert( "error détectée:" + resultat.responseText);
+					}
+				});
 				
 				var projections=getProjections();
 				$("#tableProjections").html(projections);

@@ -15,7 +15,7 @@
 <?php
 
 include '../connexion.php';
-$conn = connectDB("localhost","registration","root","");
+$conn = connectDB("localhost","cinema","root","");
 
 if (isset($_REQUEST['username'], $_REQUEST['password'])){
 	

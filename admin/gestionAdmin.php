@@ -20,7 +20,7 @@ if (isset($_REQUEST['myFunction']) && $_REQUEST['myFunction'] != '')
 function get_films()
 {	
 	$bdd=connectDB("localhost","cinema","root","");
-	$req ="select * from film";
+	$req ="select titre, DATE_FORMAT(dateSortie,'%d/%m/%Y') as 'dateSortie', duree, idFilm, description from film";
 	readDB($bdd,$req);
 }
 
@@ -46,7 +46,7 @@ function ajout_film($data){
 	
 	$libelle=$data['myParams']['libelle'];
 	$duree=$data['myParams']['duree'];
-	$description=$data['myParams']['description'];
+	$description=addslashes($data['myParams']['description']);
 	$dateSortie=$data['myParams']['sortie'];
 	
 	$req = "insert into film (titre,datesortie,duree, description) values ('$libelle','$dateSortie','$duree','$description')";
@@ -118,7 +118,7 @@ function ajout_salle($data){
 function get_projections(){
 	
 	$bdd=connectDB("localhost","cinema","root","");
-	$req="select film.titre as 'titre', projection.horaire as 'horaire' , genre.libelle as 'genre', projection.idSalle as 'salle' from projection
+	$req="select film.titre as 'titre', DATE_FORMAT(projection.horaire,'%d/%m/%Y %H:%i:%S') as 'horaire' , genre.libelle as 'genre', projection.idSalle as 'salle' from projection
 	inner join film using(idFilm) inner join genre using(idGenre) order by projection.horaire";
 	readDB($bdd,$req);
 }
@@ -141,7 +141,7 @@ function supprimer_genre($data){
 }
 
 function supprimer_film($data){
-	$idGFilm=$data['myParams']['idGFilm'];
+	$idGFilm=$data['myParams']['idFilm'];
 	$bdd=connectDB("localhost","cinema","root","");
 	$req="delete from film where idFilm='$idGFilm'";
 	writeDB($bdd,$req);

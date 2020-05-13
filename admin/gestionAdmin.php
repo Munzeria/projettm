@@ -20,7 +20,7 @@ if (isset($_REQUEST['myFunction']) && $_REQUEST['myFunction'] != '')
 function get_films()
 {	
 	$bdd=connectDB("localhost","cinema","root","");
-	$req ="select * from film";
+	$req ="select titre, DATE_FORMAT(dateSortie,'%d/%m/%Y') as 'dateSortie', duree from film";
 	readDB($bdd,$req);
 }
 

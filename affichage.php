@@ -1,7 +1,3 @@
-
-
-
-	
 <?php
 	include 'connexion.php';
 	// appel de la méthode de connexion contenue dans "connexion.php"
@@ -15,6 +11,3 @@
 	readDB($bdd,$req);
 
 ?>
-
-
-

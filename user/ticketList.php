@@ -52,7 +52,6 @@
 							str+="</tbody></div>";
 						},
 						error : function(resultat, statut, erreur){
-							alert( "error détectée:" + resultat.responseText);
 						}
 				});
 				return str;
@@ -78,7 +77,6 @@
 						$("#table").html(retour);
 					},
 					error : function(resultat, statut, erreur){
-								alert( "error détectée:" + resultat.responseText);
 					}
 				});
 				
@@ -93,7 +91,6 @@
 						},
 						
 						error : function(resultat, statut, erreur){
-							alert( "error détectée:" + resultat.responseText);
 						}
 					})
 				});

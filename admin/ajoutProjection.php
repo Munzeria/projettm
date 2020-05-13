@@ -58,7 +58,6 @@ if(!isset($_SESSION["usernameAdmin"])){
 							});
 						},
 						error : function(resultat, statut, erreur){
-							alert( "error détectée:" + resultat.responseText);
 						}
 				});
 				str="";
@@ -91,7 +90,6 @@ if(!isset($_SESSION["usernameAdmin"])){
 							
 						},
 						error : function(resultat, statut, erreur){
-							alert( "error détectée:" + resultat.responseText);
 						}
 				});
 				str="";
@@ -124,7 +122,6 @@ if(!isset($_SESSION["usernameAdmin"])){
 							});
 						},
 						error : function(resultat, statut, erreur){
-							alert( "error détectée:" + resultat.responseText);
 						}
 				});
 				
@@ -164,12 +161,10 @@ if(!isset($_SESSION["usernameAdmin"])){
 								$('#alert').show();
 							}
 							else {
-								alert("Le film " + selectedFilmProjection + " sera projetté en salle " + selectedSalleProjection + " le " + $('input[name=horaire]').val() + " à " + $('input[name=heure]').val() + ".");
 								window.location.replace("index.php");
 							}
 						},
 						error : function(resultat, statut, erreur){
-							alert( "Erreur d'ajout de la projection:" + resultat.responseText);
 						}
 					});
 				});

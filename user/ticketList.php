@@ -58,7 +58,7 @@
 					success: function(str)
 					{
 						user= $.trim(str);
-						
+						if(!user) window.location.replace("loginUser.php");
 						var retour=getTickets();
 						$("#table").html(retour);
 					},
@@ -66,7 +66,7 @@
 								alert( "error détectée:" + resultat.responseText);
 					}
 				});
-				// à régler
+				
 				$(".btn-editer").click(function(event) {
 					var id=$(this).data("id");
 					$.ajax({

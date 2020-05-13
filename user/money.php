@@ -58,6 +58,7 @@
 						async:false, 
 						success: function(str){
 							user=$.trim(str);
+							if(!user) window.location.replace("loginUser.php");
 							addMoney();
 							alert("argent ajouté"); 
 						},

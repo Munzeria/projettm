@@ -38,7 +38,7 @@
 				async:false, 				
                 success: function(str)
                 {
-					
+					if(!$.trim(str)) window.location.replace("loginUser.php");
 					// display the informations of the current user
 					$.ajax({
 						url: 'gestionUser.php',

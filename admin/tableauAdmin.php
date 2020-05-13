@@ -19,8 +19,8 @@ if(!isset($_SESSION["usernameAdmin"])){
 		
 		<script type="text/javascript" src="../jquery-3.4.1.js"></script>
 		<script type="text/javascript" src="../bootstrap/js/bootstrap.js"></script>
-		<link href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
 		
+		<link href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
 	</head>
 	<body>
 		<script>
@@ -41,10 +41,19 @@ if(!isset($_SESSION["usernameAdmin"])){
 						
 						success: function(data)
 						{
-							str+="<div class='table-responsive' id='getTableProjection'><table class='table table-hover'><thead><tr><th scope='col'>Titre du film</th><th scope='col'>Date de la séance</th><th scope='col'>Genre de la séance</th><th scope='col'>Salle</th><th scope='col'>Supprimer</th></tr></thead><tbody>";
+							str+="<div class='table' id='getTableProjection'><table class='table table-hover'><thead>"+
+								"<tr class='row'><th scope='col-6' class='col'>Titre du film</th>"+
+								"<th scope='col' class='col-2'>Date de la séance</th>"+
+								"<th scope='col' class='col-2'>Genre de la séance</th>"+
+								"<th scope='col' class='col-1'>Salle</th>"+
+								"<th scope='col' class='col-1'>Supprimer</th></tr></thead><tbody>";
 							for(var i in data){
-								str+="<tr><th scope='row'>"+data[i].titre+"</th><td>"+data[i].horaire+"</td><td>"+data[i].genre+"</td><td>"+data[i].salle+"</td>";
-								str+="<td><button type='submit' class='btn-supprimer-projection btn-info' data-horaire='" + data[i].horaire + "' data-salle='"+  data[i].salle +"' >Supprimer</button></td></tr>";
+								str+="<tr class='row'>"+
+									"<th scope='col' class='col-6'>"+data[i].titre+"</th>"+
+									"<td class='col-2'>"+data[i].horaire+"</td>"+
+									"<td class='col-2'>"+data[i].genre+"</td>"+
+									"<td class='col-1'>"+data[i].salle+"</td>";
+								str+="<td class='col-1'><button type='submit' class='btn btn-sm btn-danger btn-supprimer-projection' data-horaire='" + data[i].horaire + "' data-salle='"+  data[i].salle +"' >Supprimer</button></td></tr>";
 							}
 							str+="</tbody></div>";
 						},
@@ -72,10 +81,15 @@ if(!isset($_SESSION["usernameAdmin"])){
 						
 						success: function(data)
 						{
-							str+="<div class='table-responsive-sm' id='getTableGenres'><table class='table table-hover'><thead><tr><th scope='col'>id genre</th><th scope='col'>Libelle</th><th scope='col'>Supprimer</th></tr></thead><tbody>";
+							str+="<div class='table' id='getTableGenres'><table class='table table-hover'><thead><tr>"+
+							"<th scope='col' class='col'>Libellé</th>"+
+							"<th scope='col' class='col'>ID</th>"+
+							"<th scope='col' class='col'>Supprimer</th>"+
+							"</tr></thead><tbody>";
 							for(var i in data){
-								str+="<tr><th scope='row'>"+data[i].idGenre+"</th><td>"+data[i].libelle+"</td>";
-								str+="<td><button type='submit' class='btn-supprimer-genre btn-info' data-id='" + data[i].idGenre+"' >Supprimer</button></td></tr>";
+								str+="<tr><th scope='row' class='col'>"+data[i].libelle+"</th>"+
+								"<td class='col'>"+data[i].idGenre+"</td>";
+								str+="<td class='col'><button type='submit' class='btn btn-sm btn-danger btn-supprimer-genre' data-id='" + data[i].idGenre+"' >Supprimer</button></td></tr>";
 							}
 							str+="</tbody></div>";
 						},
@@ -103,10 +117,16 @@ if(!isset($_SESSION["usernameAdmin"])){
 						
 						success: function(data)
 						{
-							str+="<div class='table-responsive-sm' id='getTableFilms'><table class='table table-hover'><thead><tr><th scope='col'>Titre</th><th scope='col'>date de sortie</th><th scope='col'>durée</th><th scope='col'>Supprimer</th></tr></thead><tbody>";
+							str+="<div class='table' id='getTableFilms'><table class='table table-hover'><thead><tr>"+
+							"<th scope='col' class='col'>Titre</th>"+
+							"<th scope='col' class='col text-nowrap'>Date de sortie</th>"+
+							"<th scope='col' class='col'>Durée</th>"+
+							"<th scope='col' class='col'>Supprimer</th></tr></thead><tbody>";
 							for(var i in data){
-								str+="<tr><th scope='row'>"+data[i].titre+"</th><td>"+data[i].dateSortie+"</td><td>"+data[i].duree+"</td>";
-								str+="<td><button type='submit' class='btn-supprimer-film btn-info' data-id='" + data[i].idFilm+"'>Supprimer</button></td></tr>";
+								str+="<tr><th scope='row' class='col'>"+data[i].titre+"</th>"+
+								"<td class='col'>"+data[i].dateSortie+"</td>"+
+								"<td class='col'>"+data[i].duree+"</td>";
+								str+="<td class='col'><button type='submit' class='btn btn-sm btn-danger btn-supprimer-film' data-id='" + data[i].idFilm+"'>Supprimer</button></td></tr>";
 							}
 							str+="</tbody></div>";
 						},
@@ -134,10 +154,14 @@ if(!isset($_SESSION["usernameAdmin"])){
 						
 						success: function(data)
 						{
-							str+="<div class='table-responsive' id='getTableFilms'><table class='table table-hover'><thead><tr><th scope='col'>Id de la salle</th><th scope='col'>capacite</th><th scope='col'>Supprimer</th></tr></thead><tbody>";
+							str+="<div class='table' id='getTableFilms'><table class='table table-hover'><thead><tr>"+
+							"<th scope='col' class='col'>Salle n°</th>"+
+							"<th scope='col' class='col'>Capacité</th>"+
+							"<th scope='col' class='col'>Supprimer</th></tr></thead><tbody>";
 							for(var i in data){
-								str+="<tr><th scope='row'>"+data[i].idSalle+"</th><td>"+data[i].capacite+"</td>";
-								str+="<td><button type='submit' class='btn-supprimer-salle btn-info' data-id='" + data[i].idSalle+"'>Supprimer</button></td></tr>";
+								str+="<tr><th scope='row' class='col'>"+data[i].idSalle+"</th>"+
+								"<td class='col'>"+data[i].capacite+"</td>";
+								str+="<td class='col'><button type='submit' class='btn btn-sm btn-danger btn-supprimer-salle' data-id='" + data[i].idSalle+"'>Supprimer</button></td></tr>";
 							}
 							str+="</tbody></div>";
 						},
@@ -305,8 +329,12 @@ if(!isset($_SESSION["usernameAdmin"])){
 			});
 		</script>
 		
-		<div class="container-fluid"> 
+		<div class="container-fluid">
+		
 			<div class="nav sticky-top navbar-light bg-light">
+			
+				<span class="navbar-brand mb-0 h1">Gestion administrateur</span>
+				
 				<ul class="nav nav-tabs " id="myTab" role="tablist">
 					<li class="nav-item">
 						<a class="nav-link active" id="home-tab" data-toggle="tab" href="#projection" role="tab" aria-controls="home" aria-selected="false">Projections</a>
@@ -326,19 +354,19 @@ if(!isset($_SESSION["usernameAdmin"])){
 			<div class="tab-content">
 		
 				<div class="tab-pane active" id="projection" role="tabpanel" aria-labelledby="home-tab">
-					<button id="ajoutProjection" class="btn-info">Ajouter une projection</button>
+					<button id="ajoutProjection" class="btn btn-primary my-3 float-right">Ajouter une projection</button>
 					<div id="tableProjections"></div>
 				</div>
 				<div class="tab-pane " id="film" role="tabpanel" aria-labelledby="home-tab">
-					<button id="ajoutFilm" class="btn-info">Ajouter un film</button>
+					<button id="ajoutFilm" class="btn btn-primary my-3 float-right">Ajouter un film</button>
 					<div id="tableFilms"></div>
 				</div>
 				<div class="tab-pane " id="genre" role="tabpanel" aria-labelledby="home-tab">
-					<button id="ajoutGenre" class="btn-info">Ajouter un genre de projection</button>
+					<button id="ajoutGenre" class="btn btn-primary my-3 float-right">Ajouter un genre de projection</button>
 					<div id="tableGenres"></div>
 				</div>
 				<div class="tab-pane " id="salle" role="tabpanel" aria-labelledby="home-tab">
-					<button id="ajoutSalle" class="btn-info">Ajouter une salle</button>
+					<button id="ajoutSalle" class="btn btn-primary my-3 float-right">Ajouter une salle</button>
 					<div id="tableSalles"></div>
 				</div>
 			</div>

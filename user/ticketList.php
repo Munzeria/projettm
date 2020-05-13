@@ -31,10 +31,10 @@
 					
 					success: function(data)
 					{
-						str+="<div class='table-responsive-sm' id='getTableTickets'><table class='table table-hover'><thead><tr><th scope='col'>Horaire</th><th scope='col'>Film</th><th scope='col'>salle</th><th scope='col'>Genre</th><th scope='col'>Tarif</th><th scope='col'>Editer ticket</th></tr></thead><tbody>";
+						str+="<div class='table-responsive-sm' id='getTableTickets'><table class='table table-hover'><thead><tr><th scope='col'>Horaire</th><th scope='col'>Film</th><th scope='col'>salle</th><th scope='col'>Genre</th><th scope='col'>Tarif</th><th scope='col'>Download ticket</th></tr></thead><tbody>";
 						for(var i in data){
 							str+="<tr><th scope='row'>"+data[i].horaire+"</th><td>"+data[i].film+"</td><td>"+data[i].salle+"</td><td>"+data[i].genre+"</td><td>"+data[i].tarif+"</td>";
-							str+="<td><button type='submit' class='btn-editer btn-info' data-id='" + data[i].id+"'>Editer PDF</button></td></tr>";
+							str+="<td><button type='submit' class='btn-editer btn-info' data-id='" + data[i].id+"'>Download PDF</button></td></tr>";
 						}
 						str+="</tbody></div>";
 					},
@@ -71,13 +71,12 @@
 			// à régler
 			$(".btn-editer").click(function(event) {
 				var id=$(this).data("id");
-				alert("ok");
 				$.ajax({
-					url: '../generateTicket.php',
+					url: 'jsonTicket.php',
 					type:'POST',
 					data:"idTicket="+id,
-					success: function(){
-						alert("success");
+					success: function(retour){
+						window.open("generateTicket.php?json="+retour);
 					},
 					
 					error : function(resultat, statut, erreur){

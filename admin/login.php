@@ -7,7 +7,7 @@
 		<script type="text/javascript" src="../jquery-3.4.1.js"></script>
 		<script type="text/javascript" src="../bootstrap/js/bootstrap.js"></script>
 		
-		<link href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
+		<link href="../bootstrap/css/bootstrap.min.css" rel="stylesheet">
 	</head>
 <?php
 $conn = mysqli_connect('localhost', 'root', '', 'cinema');

@@ -33,11 +33,11 @@
 	function updateUser($data){
 		$username=$data['myParams']['username'];
 		$mdp=$data['myParams']['mdp'];
-		$nom=$data['myParams']['nom'];
-		$prenom=$data['myParams']['prenom'];
-		$adresse=$data['myParams']['adresse'];
+		$nom=addslashes($data['myParams']['nom']);
+		$prenom=addslashes($data['myParams']['prenom']);
+		$adresse=addslashes($data['myParams']['adresse']);
 		$cp=$data['myParams']['cp'];
-		$ville=$data['myParams']['ville'];
+		$ville=addslashes($data['myParams']['ville']);
 		$tel=$data['myParams']['tel'];
 		
 		

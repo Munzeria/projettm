@@ -44,7 +44,7 @@ function ajout_film($data){
 	
 	$bdd=connectDB("localhost","cinema","root","");
 	
-	$libelle=$data['myParams']['libelle'];
+	$libelle=addslashes($data['myParams']['libelle']);
 	$duree=$data['myParams']['duree'];
 	$description=addslashes($data['myParams']['description']);
 	$dateSortie=$data['myParams']['sortie'];
@@ -77,7 +77,7 @@ function ajout_seance($data){
 
 function ajout_genre($data){
 	
-	$libelle=$data['myParams']['libelle'];
+	$libelle=addslashes($data['myParams']['libelle']);
 	$adulte=$data['myParams']['adulte'];
 	$enfant=$data['myParams']['enfant'];
 	$senior=$data['myParams']['senior'];

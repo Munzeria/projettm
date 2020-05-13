@@ -43,10 +43,10 @@
 		if ($free['free']==0){
 			$username=$_POST['username'];
 			$password=$_POST['password'];
-			$prenom=$_POST['prenom'];
-			$nom=$_POST['nom'];
-			$adresse=$_POST['adresse'];
-			$ville=$_POST['ville'];
+			$prenom=addslashes($_POST['prenom']);
+			$nom=addslashes($_POST['nom']);
+			$adresse=addslashes($_POST['adresse']);
+			$ville=addslashes($_POST['ville']);
 			$codepostal=$_POST['codepostal'];
 			$telephone=$_POST['telephone'];
 

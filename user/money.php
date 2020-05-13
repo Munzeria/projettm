@@ -30,7 +30,6 @@
 				},
 				
 				error : function(resultat, statut, erreur){
-					alert( "error détectée:" + resultat.responseText);
 				}
 			});
 			
@@ -40,9 +39,12 @@
 		
 			$(document).ready(function(){
 				
+				$('#alert').hide();
+				
 				$("#submit").click(function(event) {
 					if($('input[id=inputAmount]').val()==0) {
-						alert("Veuillez rentrer une somme");
+						$('#alert').append("Veuillez renseigner une somme.");
+						$('#alert').show();
 						return;
 					}
 					$.ajax({
@@ -59,11 +61,10 @@
 							user=$.trim(str);
 							if(!user) window.location.replace("loginUser.php");
 							addMoney();
-							alert("argent ajouté"); 
+							alert("Votre porte-monnaie a bien été approvisionné."); 
 						},
 						
 						error : function(resultat, statut, erreur){
-							alert( "error détectée:" + resultat.responseText);
 						}
 					});
 					window.location.replace("../index.php");
@@ -84,16 +85,22 @@
 	
 		<div class="container-sm">
 	
-			<nav class="navbar navbar-light bg-light">
-				<span class="navbar-brand mb-0 h1">Approvisionner le porte-monnaie</span>
-				<input value="Retour" id="retour" class="btn btn-sm btn-secondary">	
-			</nav>
+			
+			
+			
 		
 			<div class="box sm-1 form-signin m-2 p-2">
 				
+				<nav class="navbar navbar-light bg-light">
+					<span class="navbar-brand mb-0 h1">Approvisionner le porte-monnaie</span>
+					<input value="Retour" id="retour" class="btn btn-sm btn-secondary">	
+				</nav>
+				
+				<div id="alert" class='alert alert-danger'></div>
+				
 				<label class="" for="inputAmount">Montant</label>
 				<input type="number" id="inputAmount" class="box-input form-control" name="amount" placeholder="Montant" required>
-				<input type="submit" value="Valider " id="submit" class="box-button btn btn-success align-right">
+				<input type="submit" value="Valider " id="submit" class="box-button btn btn-success">
 			</div>
 		</div>
 	</body>

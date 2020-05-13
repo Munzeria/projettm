@@ -63,12 +63,10 @@ session_start();
 								$("#inputTelephone").val(retour[0]['tel']);
 							},
 							error : function(resultat, statut, erreur){
-								alert( "error détectée:" + resultat.responseText);
 							}
 						});
 					},
 					error : function(resultat, statut, erreur){
-						alert( "error détectée:" + resultat.responseText);
 					}
 				});
 				
@@ -93,10 +91,9 @@ session_start();
 							},
 							success: function()
 							{
-								alert("Modification effectuée");
+								alert("Modifications effectuées.");
 							},
 							error : function(resultat, statut, erreur){
-								alert( "error détectée:" + resultat.responseText);
 							}
 						});
 				});

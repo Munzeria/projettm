@@ -51,7 +51,6 @@ if(!isset($_SESSION["usernameAdmin"])){
 							window.location.replace("index.php");
 						},
 						error : function(resultat, statut, erreur){
-							alert( "error détectée:" + erreur.responseText);
 						}
 					});
 				

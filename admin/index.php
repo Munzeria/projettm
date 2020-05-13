@@ -58,7 +58,6 @@ if(!isset($_SESSION["usernameAdmin"])){
 							str+="</tbody></div>";
 						},
 						error : function(resultat, statut, erreur){
-							alert( "Couldn't fetch 'Film' list: " + resultat.responseText);
 						}
 				});
 				return str;
@@ -94,7 +93,6 @@ if(!isset($_SESSION["usernameAdmin"])){
 							str+="</tbody></div>";
 						},
 						error : function(resultat, statut, erreur){
-							alert( "error détectée:" + resultat.responseText);
 						}
 				});
 				return str;
@@ -131,7 +129,6 @@ if(!isset($_SESSION["usernameAdmin"])){
 							str+="</tbody></div>";
 						},
 						error : function(resultat, statut, erreur){
-							alert( "error détectée:" + resultat.responseText);
 						}
 				});
 				return str;
@@ -166,7 +163,6 @@ if(!isset($_SESSION["usernameAdmin"])){
 							str+="</tbody></div>";
 						},
 						error : function(resultat, statut, erreur){
-							alert( "error détectée:" + resultat.responseText);
 						}
 				});
 				return str;
@@ -191,7 +187,6 @@ if(!isset($_SESSION["usernameAdmin"])){
 						
 					},
 					error : function(resultat, statut, erreur){
-							alert( "error détectée:" + resultat.responseText);
 					}
 				});
 				
@@ -228,7 +223,6 @@ if(!isset($_SESSION["usernameAdmin"])){
 						
 						},
 						error : function(resultat, statut, erreur){
-							alert( "error détectée:" + resultat.responseText);
 						}
 					})
 				});
@@ -249,11 +243,9 @@ if(!isset($_SESSION["usernameAdmin"])){
 							}
 						},
 						success: function(){
-							alert("ok");
 						},
 						
 						error : function(resultat, statut, erreur){
-							alert( "error détectée:" + resultat.responseText);
 						}
 					})
 				});
@@ -274,11 +266,9 @@ if(!isset($_SESSION["usernameAdmin"])){
 							}
 						},
 						success: function(){
-							//alert
 						},
 						
 						error : function(resultat, statut, erreur){
-							alert( "error détectée:" + resultat.responseText);
 						}
 					})
 				});
@@ -299,11 +289,9 @@ if(!isset($_SESSION["usernameAdmin"])){
 							}
 						},
 						success: function(){
-							//alert
 						},
 						
 						error : function(resultat, statut, erreur){
-							alert( "error détectée:" + resultat.responseText);
 						}
 					})
 				});

@@ -12,14 +12,12 @@ if (isset($_REQUEST['myFunction']) && $_REQUEST['myFunction'] != '')
 
 function get_films()
 {	
-	// appel de la méthode de connexion contenue dans "connexion.php"
 	$bdd=connectDB("localhost","cinema","root","");
 	$req ="select * from film";
 	readDB($bdd,$req);
 }
 
 function get_Salles(){
-	// appel de la méthode de connexion contenue dans "connexion.php"
 	$bdd=connectDB("localhost","cinema","root","");
 	$req='SELECT * from salle';
 	readDB($bdd,$req);
@@ -46,26 +44,8 @@ function ajout_film($data){
 	
 	$req = "insert into film (titre,datesortie,duree, description) values ('$libelle','$dateSortie','$duree','$description')";
 	$exec = writeDB($bdd,$req);
-	// vérifier si la requête d'insertion a réussi
-	if($exec){
-		echo 'Données insérées';
-	}else{
-		echo "Échec de l'opération d'insertion";
-	}
 	
 }
-
-function verif_seance($data){
-	
-	$horaire=$data['myParams']['horaire'];
-	$heure=$data['myParams']['heure'];
-	$idSalle=$data['myParams']['salle'];
-	
-	$bdd=connectDB("localhost","cinema","root","");
-	$req="select count(*) as 'count' from projection inner join film using (idFilm) where projection.horaire between '$horaire . ' ' . $heure' and adddate('$horaire . ' ' . $heure', interval film.duree minute) and projection.idSalle = '$idSalle'";
-	readDB($bdd,$req);
-}
-
 
 function ajout_seance($data){
 	
@@ -76,16 +56,16 @@ function ajout_seance($data){
 	$idFilm=$data['myParams']['idFilm'];
 	
 	$bdd=connectDB("localhost","cinema","root","");
+	$req="select count(*) as 'count' from projection inner join film using (idFilm) where projection.horaire between '$horaire . ' ' . $heure' and adddate('$horaire . ' ' . $heure', interval film.duree minute) and projection.idSalle = '$idSalle'";
+	$result=traitementReadDB($bdd,$req);
 	
-	$req="insert into projection(horaire,idFilm,idSalle,idGenre) values ('$horaire . ' ' . $heure','$idFilm','$idSalle','$idGenre')";
-	
-	$exec = writeDB($bdd,$req);
-	// vérifier si la requête d'insertion a réussi
-	if($exec){
-		echo 'Données insérées';
-	}else{
-		echo "Échec de l'opération d'insertion";
+	if($result['count']==0){
+		$req="insert into projection(horaire,idFilm,idSalle,idGenre) values ('$horaire . ' ' . $heure','$idFilm','$idSalle','$idGenre')";
+		$exec = writeDB($bdd,$req);
+		echo true;
 	}
+	else echo false;
+	
 }
 
 function ajout_genre($data){
@@ -117,10 +97,10 @@ function ajout_salle($data){
 	if($result['test']==0){
 		$req="insert into salle(idSalle,capacite) values ('$salle','$capacite')";
 		writeDB($bdd,$req);
-		echo 'true';
+		echo true;
 	}
 	else{
-		echo 'false';
+		echo false;
 	}
 	
 }

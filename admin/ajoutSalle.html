@@ -13,6 +13,7 @@
 	
 	<script>
 	$(document).ready(function(){
+		$('#alert').hide();
 		$("#ajoutSalle").click(function(event) {	
 			$.ajax({
                 url: 'gestionAdmin.php',
@@ -28,9 +29,11 @@
 				async:false,				
                 success: function(data)
                 {	
-					alert(data);
-					if(data="false") alert("ok");
-					window.location.replace("tableauAdmin.php");
+					if(data==false) {
+						$('#alert').append("Salle déja enregistrée");
+						$('#alert').show();
+					}
+					else window.location.replace("tableauAdmin.php");
                 },
 				error : function(resultat, statut, erreur){
 					alert( "error détectée:" + erreur.responseText);
@@ -44,7 +47,7 @@
 		});
 	});
 	</script>
-	<input value="Retour" id="retour" class=" btn"/>	
+	<input type="button" value="Retour" id="retour" class="btn  btn-primary"/>	
 	<div class="container-sm"> 
 	
 		<label>Numéro de la salle</label>
@@ -52,7 +55,8 @@
 		
 		<label>Capacité de la nouvelle salle</label>
 		<input type='number' class="box-input form-control" name="capacite" placeholder="Capacité de la salle" required></input>
-		<input  value="Valider" id="ajoutSalle" class=" btn btn-primary"/>
+		<input type="button" value="Valider" id="ajoutSalle" class="btn btn-primary"/>
+		<div id="alert" class='alert alert-danger'></div>
 	</div>
 	</body>
 	

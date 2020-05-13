@@ -11,7 +11,7 @@ if(!isset($_SESSION["username"])){
 	exit(); 
 }
 ?>
-<!DOCTYPE html>                                                 
+<!DOCTYPE html>
 <html>
 	<head>
 		<meta charset="utf-8" name="viewport" content="width=device-width, initial-scale=1.0"/>
@@ -116,7 +116,7 @@ if(!isset($_SESSION["username"])){
 				});
 				return str;
 			};
-	
+			
 			function getSalles(){
 				var str="";
 				$.ajax({
@@ -148,10 +148,10 @@ if(!isset($_SESSION["username"])){
 				return str;
 			};
 	
-	/* ************************************************************** */ 
+/* ************************************************************** */ 
 	
 			$(document).ready(function(){
-		
+				
 				var projections=getProjections();
 				$("#tableProjections").html(projections);
 				
@@ -231,7 +231,7 @@ if(!isset($_SESSION["username"])){
 							}
 						},
 						success: function(){
-							
+							//alert
 						},
 						
 						error : function(resultat, statut, erreur){
@@ -256,7 +256,7 @@ if(!isset($_SESSION["username"])){
 							}
 						},
 						success: function(){
-							alert("ok");
+							//alert
 						},
 						
 						error : function(resultat, statut, erreur){
@@ -282,11 +282,10 @@ if(!isset($_SESSION["username"])){
 				$("#ajoutSalle").click(function(event) {
 					window.location.replace("ajoutSalle.html");
 				});
+				
 			});
-  
-  
-  
 		</script>
+		
 		<div class="container-fluid"> 
 			<div class="nav sticky-top navbar-light bg-light">
 				<ul class="nav nav-tabs " id="myTab" role="tablist">
@@ -306,7 +305,7 @@ if(!isset($_SESSION["username"])){
 			</div>
 	
 			<div class="tab-content">
-			
+		
 				<div class="tab-pane active" id="projection" role="tabpanel" aria-labelledby="home-tab">
 					<div id="tableProjections"></div>
 					<button id="ajoutProjection" class="btn-info">Ajouter une projection</button>

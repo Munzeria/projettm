@@ -56,6 +56,7 @@
 									. "</button>"
 									."<div class='dropdown-menu' aria-labelledby='dropdownMenuButton'>"
 										."<a class='dropdown-item' href='user/edit.php'>Profil</a>"
+										."<a class='dropdown-item' href='user/ticketList.php'>Tickets</a>"
 										."<a class='dropdown-item' href='user/logout.php'>Déconnexion</a>"
 									."</div>"
 								. "</div>";

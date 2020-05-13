@@ -41,7 +41,7 @@ if(!isset($_SESSION["usernameAdmin"])){
 							myParams:{
 								libelle:$('input[name=libelle]').val(),
 								duree:$('input[name=duree]').val(),
-								description:$('input[name=description]').val(),
+								description:$('textarea[name=description]').val(),
 								sortie:$('input[name=sortie]').val()
 							}
 						},

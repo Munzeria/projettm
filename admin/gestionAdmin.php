@@ -46,7 +46,7 @@ function ajout_film($data){
 	
 	$libelle=$data['myParams']['libelle'];
 	$duree=$data['myParams']['duree'];
-	$description=$data['myParams']['description'];
+	$description=addslashes($data['myParams']['description']);
 	$dateSortie=$data['myParams']['sortie'];
 	
 	$req = "insert into film (titre,datesortie,duree, description) values ('$libelle','$dateSortie','$duree','$description')";
@@ -141,7 +141,7 @@ function supprimer_genre($data){
 }
 
 function supprimer_film($data){
-	$idGFilm=$data['myParams']['idGFilm'];
+	$idGFilm=$data['myParams']['idFilm'];
 	$bdd=connectDB("localhost","cinema","root","");
 	$req="delete from film where idFilm='$idGFilm'";
 	writeDB($bdd,$req);

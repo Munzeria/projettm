@@ -1,28 +1,26 @@
 <?php
+include '../connexion.php';
 
- include '../connexion.php';
-
- // appel de la méthode de connexion contenue dans "connexion.php"
+// appel de la méthode de connexion contenue dans "connexion.php"
 $bdd=connectDB("localhost","cinema","root",""); 
-  // Initialiser la session
-  session_start();
-  // Vérifiez si l'utilisateur est connecté, sinon redirigez-le vers la page de connexion
-  if(!isset($_SESSION["username"])){
-    header("Location: login.php");
-    exit(); 
-  }
+// Initialiser la session
+session_start();
+// Vérifiez si l'utilisateur est connecté, sinon redirigez-le vers la page de connexion
+if(!isset($_SESSION["username"])){
+	header("Location: login.php");
+	exit(); 
+}
 ?>
 <!DOCTYPE html>                                                 
 <html>
 	<head>
-		<meta charset="utf-8">
+		<meta charset="utf-8" name="viewport" content="width=device-width, initial-scale=1.0"/>
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-		<meta name="viewport" content="initial-scale=1.0, maximum-scale=2.0">
 		
 		<script type="text/javascript" src="../jquery-3.4.1.js"></script>
 		<script type="text/javascript" src="../bootstrap/js/bootstrap.js"></script>
-		<link  href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
-		<link href="logincss.css" rel="stylesheet">
+		<link href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
+		
 	</head>
 	<body>
 		<script>
@@ -43,7 +41,7 @@ $bdd=connectDB("localhost","cinema","root","");
 						
 						success: function(data)
 						{
-							str+="<div class='table-responsive-sm' id='getTableProjection'><table class='table table-hover'><thead><tr><th scope='col'>Titre du film</th><th scope='col'>Date de la séance</th><th scope='col'>Genre de la séance</th><th scope='col'>Salle</th><th scope='col'>Supprimer</th></tr></thead><tbody>";
+							str+="<div class='table-responsive' id='getTableProjection'><table class='table table-hover'><thead><tr><th scope='col'>Titre du film</th><th scope='col'>Date de la séance</th><th scope='col'>Genre de la séance</th><th scope='col'>Salle</th><th scope='col'>Supprimer</th></tr></thead><tbody>";
 							for(var i in data){
 								str+="<tr><th scope='row'>"+data[i].titre+"</th><td>"+data[i].horaire+"</td><td>"+data[i].genre+"</td><td>"+data[i].salle+"</td>";
 								str+="<td><button type='submit' class='btn-supprimer-projection btn-info' data-horaire='" + data[i].horaire + "' data-salle='"+  data[i].salle +"' >Supprimer</button></td></tr>";
@@ -136,7 +134,7 @@ $bdd=connectDB("localhost","cinema","root","");
 						
 						success: function(data)
 						{
-							str+="<div class='table-responsive-sm' id='getTableFilms'><table class='table table-hover'><thead><tr><th scope='col'>Id de la salle</th><th scope='col'>capacite</th><th scope='col'>Supprimer</th></tr></thead><tbody>";
+							str+="<div class='table-responsive' id='getTableFilms'><table class='table table-hover'><thead><tr><th scope='col'>Id de la salle</th><th scope='col'>capacite</th><th scope='col'>Supprimer</th></tr></thead><tbody>";
 							for(var i in data){
 								str+="<tr><th scope='row'>"+data[i].idSalle+"</th><td>"+data[i].capacite+"</td>";
 								str+="<td><button type='submit' class='btn-supprimer-salle btn-info' data-id='" + data[i].idSalle+"'>Supprimer</button></td></tr>";
@@ -289,7 +287,7 @@ $bdd=connectDB("localhost","cinema","root","");
   
   
 		</script>
-		<div class="container-sm"> 
+		<div class="container-fluid"> 
 			<div class="nav sticky-top navbar-light bg-light">
 				<ul class="nav nav-tabs " id="myTab" role="tablist">
 					<li class="nav-item">

@@ -4,12 +4,14 @@
 <!DOCTYPE html>
 <html>
 	<head>
-		<meta charset="utf-8">
+	
+		<meta charset="utf-8" name="viewport" content="width=device-width, initial-scale=1.0"/>
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-		<meta name="viewport" content="initial-scale=1.0, maximum-scale=2.0">
+		
+		<link href="../bootstrap/css/bootstrap.min.css" rel="stylesheet">
+		
 		<script type="text/javascript" src="../jquery-3.4.1.js"></script>
 		<script type="text/javascript" src="../bootstrap/js/bootstrap.js"></script>
-		<link type="text/css" rel="stylesheet" href="../bootstrap/css/bootstrap.min.css">
 		<script type="text/javascript">
 			var user;
 			function getTickets(){
@@ -29,10 +31,23 @@
 						
 						success: function(data)
 						{
-							str+="<div class='table-responsive-sm' id='getTableTickets'><table class='table table-hover'><thead><tr><th scope='col'>Horaire</th><th scope='col'>Film</th><th scope='col'>salle</th><th scope='col'>Genre</th><th scope='col'>Tarif</th><th scope='col'>Download ticket</th></tr></thead><tbody>";
+							str+="<div class='table table-striped table-sm' id='getTableTickets'><table class='table table-hover'><thead><tr>"+
+							"<th scope='col' class='col col-3'>Film</th>"+
+							"<th scope='col' class='col col-2'>Horaire</th>"+
+							"<th scope='col' class='col'>Salle</th>"+
+							"<th scope='col' class='col'>Type</th>"+
+							"<th scope='col' class='col'>Tarif</th>"+
+							"<th scope='col' class='col'>Ticket</th></tr></thead><tbody>";
 							for(var i in data){
-								str+="<tr><th scope='row'>"+data[i].horaire+"</th><td>"+data[i].film+"</td><td>"+data[i].salle+"</td><td>"+data[i].genre+"</td><td>"+data[i].tarif+"</td>";
-								str+="<td><button type='submit' class='btn-editer btn-info' data-id='" + data[i].id+"'>Download PDF</button></td></tr>";
+								str+="<tr><th scope='row' class='col col-3 text-nowrap'>"+data[i].film+"</td>"+
+								"<td class='col col-2'>"+data[i].horaire+"</th>"+
+								"<td class='col'>"+data[i].salle+"</td>"+
+								"<td class='col'>"+data[i].genre+"</td>"+
+								"<td class='col'>"+data[i].tarif+"</td>";
+								str+="<td class='col'>"+
+								"<button type='submit' class='btn btn-editer btn-sm btn-success' data-id='" + data[i].id+"'>"+
+								"<img src='../img/download.svg'/ width='18' heigth='18' class=''>"+
+								"</button></td></tr>";
 							}
 							str+="</tbody></div>";
 						},
@@ -82,14 +97,26 @@
 						}
 					})
 				});
+				
+				$("#return").click(function(event){
+					window.location.replace("../index.php");
+				});
 			});	
 		</script>
 	</head>
 	
 	<body>
+	
+		<div class="nav sticky-top navbar-light bg-light">
+			
+				<img src="../img/ticket.png" class="p-1" width="50" height="50">
+				<span class="navbar-brand mb-0 h1 m-1">Vos tickets</span>
+				
+				<input value="Retour" id="return" class="nav btn btn-sm btn-outline-primary ml-auto m-1">
+				
+			</div>
+	
 		<div id='table'></div>
 	
 	</body>
-	
-	
 </html>

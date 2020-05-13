@@ -6,7 +6,7 @@ $bdd=connectDB("localhost","cinema","root","");
 // Initialiser la session
 session_start();
 // Vérifiez si l'utilisateur est connecté, sinon redirigez-le vers la page de connexion
-if(!isset($_SESSION["username"])){
+if(!isset($_SESSION["usernameAdmin"])){
 	header("Location: login.php");
 	exit(); 
 }
@@ -49,7 +49,7 @@ if(!isset($_SESSION["username"])){
 							str+="</tbody></div>";
 						},
 						error : function(resultat, statut, erreur){
-							alert( "error détectée:" + resultat.responseText);
+							alert( "Couldn't fetch 'Film' list: " + resultat.responseText);
 						}
 				});
 				return str;
@@ -287,19 +287,19 @@ if(!isset($_SESSION["username"])){
 				
 				/* REDIRECTIONS POUR LES AJOUTS */ 
 				$("#ajoutProjection").click(function(event) {
-					window.location.replace("ajoutProjection.html");
+					window.location.replace("ajoutProjection.php");
 				});
 				
 				$("#ajoutFilm").click(function(event) {
-					window.location.replace("ajoutFilm.html");
+					window.location.replace("ajoutFilm.php");
 				});
 				
 				$("#ajoutGenre").click(function(event) {
-					window.location.replace("ajoutGenre.html");
+					window.location.replace("ajoutGenre.php");
 				});
 				
 				$("#ajoutSalle").click(function(event) {
-					window.location.replace("ajoutSalle.html");
+					window.location.replace("ajoutSalle.php");
 				});
 				
 			});
@@ -326,21 +326,20 @@ if(!isset($_SESSION["username"])){
 			<div class="tab-content">
 		
 				<div class="tab-pane active" id="projection" role="tabpanel" aria-labelledby="home-tab">
-					<div id="tableProjections"></div>
 					<button id="ajoutProjection" class="btn-info">Ajouter une projection</button>
+					<div id="tableProjections"></div>
 				</div>
 				<div class="tab-pane " id="film" role="tabpanel" aria-labelledby="home-tab">
-				
-					<div id="tableFilms"></div>
 					<button id="ajoutFilm" class="btn-info">Ajouter un film</button>
+					<div id="tableFilms"></div>
 				</div>
 				<div class="tab-pane " id="genre" role="tabpanel" aria-labelledby="home-tab">
-					<div id="tableGenres"></div>
 					<button id="ajoutGenre" class="btn-info">Ajouter un genre de projection</button>
+					<div id="tableGenres"></div>
 				</div>
 				<div class="tab-pane " id="salle" role="tabpanel" aria-labelledby="home-tab">
-					<div id="tableSalles"></div>
 					<button id="ajoutSalle" class="btn-info">Ajouter une salle</button>
+					<div id="tableSalles"></div>
 				</div>
 			</div>
 		</div>

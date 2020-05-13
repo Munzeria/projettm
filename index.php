@@ -91,6 +91,7 @@
 						<button id="retour" class="btn-info" onclick="reset()">Retour au choix de projection</button>
 						<div id="table"></div>
 						<button id="valider" class="btn-info">Valider</button>
+						<div id="wait"  class="alert alert-info" role="alert" style="display: none;">Veuillez patienter</div>
 					</div>
 				</div>
 			</div>

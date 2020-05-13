@@ -50,7 +50,7 @@ if(!isset($_SESSION["usernameAdmin"])){
 						
 						success: function()
 						{
-							window.location.replace("tableauAdmin.php");
+							window.location.replace("index.php");
 						},
 						error : function(resultat, statut, erreur){
 							alert( "error détectée:" + erreur.responseText);
@@ -59,7 +59,7 @@ if(!isset($_SESSION["usernameAdmin"])){
 				});
 				
 				$("#retour").click(function(event) {	
-				window.location.replace("tableauAdmin.php");
+				window.location.replace("index.php");
 				});
 			});
 		</script>

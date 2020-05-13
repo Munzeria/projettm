@@ -23,7 +23,7 @@ if (isset($_POST['username']) && isset($_POST['password']) ){
   
 	if($rows==1){
 	  $_SESSION['usernameAdmin'] = $username;
-	  header("Location: tableauAdmin.php");
+	  header("Location: index.php");
 	}
 }
 ?>

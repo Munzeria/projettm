@@ -165,7 +165,7 @@ if(!isset($_SESSION["usernameAdmin"])){
 							}
 							else {
 								alert("Le film " + selectedFilmProjection + " sera projetté en salle " + selectedSalleProjection + " le " + $('input[name=horaire]').val() + " à " + $('input[name=heure]').val() + ".");
-								window.location.replace("tableauAdmin.php");
+								window.location.replace("index.php");
 							}
 						},
 						error : function(resultat, statut, erreur){
@@ -175,7 +175,7 @@ if(!isset($_SESSION["usernameAdmin"])){
 				});
 				
 				$("#retour").click(function(event) {	
-					window.location.replace("tableauAdmin.php");
+					window.location.replace("index.php");
 				});
 			});
 		</script>

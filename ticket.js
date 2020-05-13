@@ -91,6 +91,23 @@ function getTicketAmount(){
 	return amount;
 }
 
+function getMoney(){
+		$.ajax({
+		//envoi d'une demande de récupération des prix des tickets selon le genre de la projection choisie
+			method: "POST",
+			url: "getMoney.php",
+			data: "username="+username,  
+			dataType: "json",
+			success : function(retour, statut){
+				return retour[0].argent;
+			},
+					
+			error : function(resultat, statut, erreur){
+				return 0;
+			}
+		})
+}
+
 function getProjection()
 		{	var str="";
 			var horaireSplit;
@@ -98,7 +115,7 @@ function getProjection()
 			var idGenreSplit;
 			$.ajax(
 			{
-			  method: "GET",
+			  method: "POST",
 			  url: "affichage.php",
 			  async:false,  
 			  dataType: "json"
@@ -170,7 +187,7 @@ function getProjection()
 				$.ajax(
 				{	
 					//envoi d'une demande de récupération des prix des tickets selon le genre de la projection choisie
-					method: "GET",
+					method: "POST",
 					url: "reservation.php",
 					data: "genre="+genre,  
 					dataType: "json",
@@ -194,7 +211,7 @@ function getProjection()
 			
 				$.ajax(
 				{	
-					method: "GET",
+					method: "POST",
 					url: "nombreTicket.php",
 					data: "horaire="+horaire+"&salle="+salle,  
 					dataType: "json",

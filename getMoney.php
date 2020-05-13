@@ -1,5 +1,3 @@
-
-
 <?php 
 
 
@@ -9,10 +7,9 @@
 	$bdd=connectDB("localhost","cinema","root","");
 
 	// récupération des séances 
-	$horaire=$_POST['horaire'];
-	$salle=$_POST['salle'];
+	$username=$_POST['username'];
 
-	$req = "select capacite-(select count(*) from ticket where idsalle=2 and horaire='$horaire') as 'nbTicketAvailable' from salle where idSalle='$salle'";
+	$req = "select argent from userInformation where username='$username'";
 	readDB($bdd,$req);
 
 

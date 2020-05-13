@@ -83,7 +83,7 @@
 		<input type="tel" id="inputTelephone" class="box-input form-control" name="telephone" placeholder="Téléphone" pattern="^((\+\d{1,3}(-| )?\(?\d\)?(-| )?\d{1,5})|(\(?\d{2,6}\)?))(-| )?(\d{3,4})(-| )?(\d{4})(( x| ext)\d{1,5}){0,1}$" required onkeyup="MaxLengthText(this,50);">
 		
 		
-	   <div class="container form-inline"> <input type="submit" value="Inscription" name="submit" class="box-button btn btn-primary"><div id="alert"></div></div>
+	   <div class="container"> <input type="submit" value="Inscription" name="submit" class="box-button btn btn-success float-right"><div id="alert"></div></div>
 		<p class="box-register">Déjà inscrit? <a href="login.php">Connectez-vous ici</a></p>
 	</form>
 

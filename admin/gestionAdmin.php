@@ -118,7 +118,7 @@ function ajout_salle($data){
 function get_projections(){
 	
 	$bdd=connectDB("localhost","cinema","root","");
-	$req="select film.titre as 'titre', DATE_FORMAT(projection.horaire,'%d/%m/%Y %H:%i:%S') as 'horaire' , genre.libelle as 'genre', projection.idSalle as 'salle' from projection
+	$req="select film.titre as 'titre', projection.horaire as 'horaire' , DATE_FORMAT(projection.horaire,'%d/%m/%Y %H:%i:%S') as 'displayHoraire' , genre.libelle as 'genre', projection.idSalle as 'salle' from projection
 	inner join film using(idFilm) inner join genre using(idGenre) order by projection.horaire";
 	readDB($bdd,$req);
 }
@@ -129,7 +129,7 @@ function supprimer_projection($data){
 	$idSalle=$data['myParams']['salle'];
 	
 	$bdd=connectDB("localhost","cinema","root","");
-	$req="delete from projection where horaire='$horaire' and idSalle='$idSalle'";
+	$req="delete from projection where horaire='$horaire'and idSalle='$idSalle'";
 	writeDB($bdd,$req);
 }
 

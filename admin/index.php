@@ -50,7 +50,7 @@ if(!isset($_SESSION["usernameAdmin"])){
 							for(var i in data){
 								str+="<tr class='row'>"+
 									"<th scope='col' class='col-6'>"+data[i].titre+"</th>"+
-									"<td class='col-2'>"+data[i].horaire+"</td>"+
+									"<td class='col-2'>"+data[i].displayHoraire+"</td>"+
 									"<td class='col-2'>"+data[i].genre+"</td>"+
 									"<td class='col-1'>"+data[i].salle+"</td>";
 								str+="<td class='col-1'><button type='submit' class='btn btn-sm btn-danger btn-supprimer-projection' data-horaire='" + data[i].horaire + "' data-salle='"+  data[i].salle +"' >Supprimer</button></td></tr>";
@@ -207,7 +207,6 @@ if(!isset($_SESSION["usernameAdmin"])){
 					horaireProj=$(this).data("horaire");
 					salle = $(this).data("salle");
 					$(this).parents("tr").remove();
-					
 					$.ajax({
 						url: 'gestionAdmin.php',
 						type:'POST',

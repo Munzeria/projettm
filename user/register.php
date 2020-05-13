@@ -84,7 +84,7 @@
 		
 		
 	   <div class="container"> <input type="submit" value="Inscription" name="submit" class="box-button btn btn-success float-right"><div id="alert"></div></div>
-		<p class="box-register">Déjà inscrit? <a href="login.php">Connectez-vous ici</a></p>
+		<p class="box-register">Déjà inscrit? <a href="loginUser.php">Connectez-vous ici</a></p>
 	</form>
 
 	<?php

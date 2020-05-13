@@ -52,7 +52,7 @@
 
 		$bdd = connectDB("localhost","cinema","root","");
 		
-		$req="select ticket.idTicket as 'id', DATE_FORMAT(ticket.horaire,'%e/%c/%Y %H:%i:%S') as 'horaire', ticket.idSalle as 'salle', ticket.tarif as 'tarif' , film.titre as 'film', genre.libelle as 'genre' from ticket inner join projection using(horaire,idSalle) inner join film using(idFilm) inner join genre using(idGenre) where ticket.username='$username' ";
+		$req="select ticket.idTicket as 'id', DATE_FORMAT(ticket.horaire,'%e/%c/%Y %H:%i:%S') as 'horaire', ticket.idSalle as 'salle', ticket.tarif as 'tarif' , film.titre as 'film', genre.libelle as 'genre' from ticket inner join projection using(horaire,idSalle) inner join film using(idFilm) inner join genre using(idGenre) where ticket.username='$username' and ticket.horaire>=now() ";
 		readDB($bdd,$req);	
 
 	}

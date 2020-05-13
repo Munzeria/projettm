@@ -19,7 +19,7 @@
 						type:'POST',
 						data:
 						{
-							myFunction:'getTicketUser',
+							myFunction:'getTicketsUser',
 							myParams:{
 								username:user
 							}
@@ -83,12 +83,6 @@
 					})
 				});
 			});	
-				
-				
-
-						
-		
-		
 		</script>
 	</head>
 	

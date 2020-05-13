@@ -25,7 +25,7 @@
 			echo trim($_SESSION["username"]);
 		}
 		else{
-			header("Location: loginUser.php");
+			echo false;
 			exit(); 
 		}
 	}

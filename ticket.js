@@ -1,6 +1,50 @@
 // enfant, etudiant, adulte, senior
 var qte_ticket=[0,0,0,0];
 var prix_ticket=[0,0,0,0];
+var user;
+
+function getUser(){
+	$.ajax({
+		url: 'user/gestionUser.php',
+		type:'POST',
+		data:
+			{
+				myFunction:'connexionUser',
+				myParams:{	
+				}
+			},
+		async:false, 
+		success: function(str){
+			user=$.trim(str);
+			if(!user) window.location.assign("user/loginUser.php");
+		},
+		
+		error : function(resultat, statut, erreur){
+			alert( "error détectée:" + resultat.responseText);
+		}
+	});
+}
+
+function delMoney(amount){
+	$.ajax({
+		url: 'user/gestionUser',
+		type:'POST',
+		data:
+		{
+			myFunction:'addMoney',
+			myParams:{	
+				username:user,
+				argent:-amount
+			}
+		}, 
+		success: function(){
+		},
+		
+		error : function(resultat, statut, erreur){
+			alert( "error détectée:" + resultat.responseText);
+		}
+	});
+}
 
 //	Cree la table avec les differents prix
 function createTable(retour){
@@ -92,20 +136,56 @@ function getTicketAmount(){
 }
 
 function getMoney(){
-		$.ajax({
-		//envoi d'une demande de récupération des prix des tickets selon le genre de la projection choisie
-			method: "POST",
-			url: "getMoney.php",
-			data: "username="+username,  
-			dataType: "json",
-			success : function(retour, statut){
-				return retour[0].argent;
-			},
-					
-			error : function(resultat, statut, erreur){
-				return 0;
-			}
-		})
+	
+	var nb=0;
+	
+	$.ajax({
+		method: "POST",
+		url: "getMoney.php",
+		data: "username="+user, 
+		async:false,				
+		dataType: "json",
+		
+		success : function(retour, statut){
+			nb= retour[0].argent;
+		}					
+	})
+	
+	return nb;
+	
+
+}
+
+function insertTicket(horaire, idSalle, username, tarif){
+	
+	$.ajax(
+	{	
+		method: "POST",
+		url: "insertTicket.php",
+		data: "horaire="+horaire+"&idSalle="+idSalle+"&username="+username+"&tarif="+tarif,    
+		success : function(retour, statut){
+			
+		},
+		
+		error : function(resultat, statut, erreur){
+			alert( "error détectée:" + erreur.responseText);
+		}
+	})	
+}
+
+function validerAchat(horaire, idSalle, username, amount){
+	delMoney(amount);
+	validerTicket(horaire, idSalle, username,0,"tarifEnfant");
+	validerTicket(horaire, idSalle, username,1,"tarifEtudiant");
+	validerTicket(horaire, idSalle, username,2,"tarifAdulte");
+	validerTicket(horaire, idSalle, username,3,"tarifSenior");
+	window.location.assign("user/ticketList.php");
+}
+
+function validerTicket(horaire, idSalle, username,id,tarif){
+	for(i=1;i<=qte_ticket[id];i++){
+		insertTicket(horaire, idSalle, username, tarif);
+	}
 }
 
 function getProjection()
@@ -191,7 +271,10 @@ function getProjection()
 					url: "reservation.php",
 					data: "genre="+genre,  
 					dataType: "json",
+					async:false,  
 					success : function(retour, statut){
+						
+						getUser();
 						
 						// création de la table avec les différents tickets
 						$("#table").append(createTable(retour[0]));
@@ -215,6 +298,7 @@ function getProjection()
 					url: "nombreTicket.php",
 					data: "horaire="+horaire+"&salle="+salle,  
 					dataType: "json",
+					async:false,  
 					success : function(retour, statut){
 						if(getTicketAmount()==0){
 							alert("Commande impossible, il est impossible de commander 0 ticket !");
@@ -222,7 +306,11 @@ function getProjection()
 						}
 						
 						if(retour[0].nbTicketAvailable>=getTicketAmount()){
-							//Valider commande
+							if(getMoney()>=totalTickets()){
+								validerAchat(horaire, salle, user,totalTickets());
+							}else{
+								window.location.assign("user/money.php");
+							}
 						}else{
 							alert("Commande impossible, il ne reste que "+retour[0].nbTicketAvailable+" disponible.");
 						}
@@ -240,33 +328,4 @@ function getProjection()
 				$("#afficher").show();
 			});
 			
-			
-			function validation(){
-				$.ajax(
-				{	
-					method: "POST",
-					url: "validerCommande",
-					data: "horaire="+horaire+"&salle="+salle,  
-					dataType: "json",
-					success : function(retour, statut){
-						if(getTicketAmount()==0){
-							alert("Commande impossible, il est impossible de commander 0 ticket !");
-							return;
-						}
-						
-						if(retour[0].nbTicketAvailable>=getTicketAmount()){
-							//Valider commande
-						}else{
-							alert("Commande impossible, il ne reste que "+retour[0].nbTicketAvailable+" disponible.");
-						}
-					},
-					
-					error : function(resultat, statut, erreur){
-						alert( "error détectée:" + erreur.responseText);
-					}
-				})
-				
-				
-				
-			};
 });

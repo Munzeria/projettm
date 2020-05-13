@@ -44,7 +44,7 @@ if(!isset($_SESSION["usernameAdmin"])){
 								$('#alert').append("Salle déja enregistrée");
 								$('#alert').show();
 							}
-							else window.location.replace("tableauAdmin.php");
+							else window.location.replace("index.php");
 						},
 						error : function(resultat, statut, erreur){
 							alert( "error détectée:" + erreur.responseText);
@@ -54,7 +54,7 @@ if(!isset($_SESSION["usernameAdmin"])){
 				});
 				
 				$("#retour").click(function(event) {	
-					window.location.replace("tableauAdmin.php");
+					window.location.replace("index.php");
 				});
 			});
 		</script>

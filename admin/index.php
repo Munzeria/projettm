@@ -331,7 +331,7 @@ if(!isset($_SESSION["usernameAdmin"])){
 					$.ajax({
 						url: 'logout.php',
 						success: function(){
-							window.location.replace("tableauAdmin.php");
+							window.location.replace("index.php");
 						}
 					})
 				});
@@ -360,7 +360,7 @@ if(!isset($_SESSION["usernameAdmin"])){
 					</li>
 				</ul>
 				
-				<input value="Déconnexion" id="disconnect" class="nav btn btn-sm btn-outline-danger ml-auto">
+				<input value="Déconnexion" id="disconnect" class="nav btn btn-sm btn-outline-danger ml-auto m-1">
 				
 			</div>
 	

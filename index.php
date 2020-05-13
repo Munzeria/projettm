@@ -56,7 +56,7 @@
 									. "<button class='btn btn-link dropdown-toggle' type='button' id='dropdownMenuButton' data-toggle='dropdown' aria-haspopup='true' aria-expanded='false'>"
 									. $_SESSION['username']
 									. "</button>"
-									."<div class='dropdown-menu' aria-labelledby='dropdownMenuButton'>"
+									."<div class='dropdown-menu dropdown-menu-right' aria-labelledby='dropdownMenuButton'>"
 										."<a class='dropdown-item' href='user/edit.php'>Profil</a>"
 										."<a class='dropdown-item' href='user/ticketList.php'>Tickets</a>"
 										."<a class='dropdown-item' href='user/logout.php'>Déconnexion</a>"

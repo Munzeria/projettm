@@ -92,6 +92,7 @@ session_start();
 							success: function()
 							{
 								alert("Modifications effectuées.");
+								window.location.replace("../index.php");
 							},
 							error : function(resultat, statut, erreur){
 							}

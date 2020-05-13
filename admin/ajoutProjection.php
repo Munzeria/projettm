@@ -125,8 +125,7 @@ if(!isset($_SESSION["usernameAdmin"])){
 						}
 				});
 				
-				$("#ajoutProj").click(function(event) {	
-				
+				$("#ajoutProj").click(function(event) {
 					$('#alert').empty();
 					if($('input[name=horaire]').val()==""){
 						$('#alert').append("Erreur ! Veuillez choisir une date.");
@@ -135,6 +134,10 @@ if(!isset($_SESSION["usernameAdmin"])){
 					}
 					else if($('input[name=heure]').val()==""){
 						$('#alert').append("Erreur ! Veuillez choisir une heure.");
+						$('#alert').show();
+						return;
+					}else if(new Date($('input[name=horaire]').val()+$('input[name=heure]').val())<Date.now()){
+						$('#alert').append("Erreur ! La date choisie est déjà passée.");
 						$('#alert').show();
 						return;
 					}

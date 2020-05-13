@@ -73,7 +73,7 @@ if(!isset($_SESSION["usernameAdmin"])){
 			<div id="alert" class='alert alert-danger my-3'></div>
 		
 			<label class="my-1">Libelle du genre</label>
-			<input type='text' class="box-input form-control" name="libelle" placeholder="Libelle du film" required></input>
+			<input type='text' class="box-input form-control" name="libelle" placeholder="Libelle du genre" required></input>
 			
 			<label class="my-1">Prix adulte</label>
 			<input type='number' class="box-input form-control" name="prixAdulte" placeholder="tarif adulte " required></input>

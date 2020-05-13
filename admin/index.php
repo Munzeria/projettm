@@ -266,6 +266,7 @@ if(!isset($_SESSION["usernameAdmin"])){
 							}
 						},
 						success: function(){
+							$("#tableProjections").html(getProjections());
 						},
 						
 						error : function(resultat, statut, erreur){

@@ -41,7 +41,7 @@
 		$tel=$data['myParams']['tel'];
 		
 		
-		$conn = connectDB("localhost","cinema","root","");
+		$bdd = connectDB("localhost","cinema","root","");
 		
 		$req="update userInformation set password='".hash('sha256', $mdp)."', nom='$nom', prenom='$prenom', addresse='$adresse', cp='$cp', ville='$ville', tel='$tel' where username='$username'";
 		writeDB($bdd,$req);

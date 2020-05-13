@@ -90,9 +90,9 @@
 				<div class="tab-pane" id="projection" role="tabpanel" aria-labelledby="projection-tab">
 					<div id="afficher"></div>
 					<div id="reserver">
-						<button id="retour" class="btn-info" onclick="reset()">Retour au choix de projection</button>
+						<button id="retour" class="btn btn-info m-1" onclick="reset()">Retour au choix de projection</button>
 						<div id="table"></div>
-						<button id="valider" class="btn-info">Valider</button>
+						<button id="valider" class="btn btn-success float-right">Valider</button>
 						<div id="wait"  class="alert alert-info" role="alert" style="display: none;">Veuillez patienter</div>
 					</div>
 				</div>

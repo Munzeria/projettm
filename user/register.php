@@ -27,6 +27,11 @@
 			document.getElementById("inputTelephone").value=telephone;
 		}
 
+		$(document).ready(function(){
+			$("#retour").click(function(event) {	
+				window.location.replace("../index.php");
+			});
+		});
 
 	</script>
 </head>
@@ -64,7 +69,14 @@
 		}else{
 	?>
 	<form class="box container-sm sm-1 form-signin" action="" method="post" name="register">
+	
+		<nav class="navbar navbar-light bg-light">
+			<span class="navbar-brand mb-0 h1">Inscription</span>
+			<input value="Accueil" id="retour" class="btn btn-sm btn-secondary">	
+		</nav>
 
+		<div id="alert"></div>
+	
 		<label for="inputUsername" >Nom d'utilisateur</label>
 		<input type="text" id="inputUsername" class="box-input form-control" name="username" placeholder="Nom d'utilisateur" required onkeyup="MaxLengthText(this,50);">
 		<label for="inputPassword" >Mot de passe</label>
@@ -83,7 +95,7 @@
 		<input type="tel" id="inputTelephone" class="box-input form-control" name="telephone" placeholder="Téléphone" pattern="^((\+\d{1,3}(-| )?\(?\d\)?(-| )?\d{1,5})|(\(?\d{2,6}\)?))(-| )?(\d{3,4})(-| )?(\d{4})(( x| ext)\d{1,5}){0,1}$" required onkeyup="MaxLengthText(this,50);">
 		
 		
-	   <div class="container"> <input type="submit" value="Inscription" name="submit" class="box-button btn btn-success float-right"><div id="alert"></div></div>
+	   <div class="container"> <input type="submit" value="Inscription" name="submit" class="box-button btn btn-success float-right"></div>
 		<p class="box-register">Déjà inscrit? <a href="loginUser.php">Connectez-vous ici</a></p>
 	</form>
 

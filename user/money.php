@@ -85,10 +85,6 @@
 	
 		<div class="container-sm">
 	
-			
-			
-			
-		
 			<div class="box sm-1 form-signin m-2 p-2">
 				
 				<nav class="navbar navbar-light bg-light">

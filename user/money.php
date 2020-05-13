@@ -16,13 +16,12 @@
 		<script>
 			(document).ready(function(){
 				$(".submit").click(function(event) {
-					var id=$(this).data("id");
 					$.ajax({
 						url: 'addMoney.php',
 						type:'POST',
-						data:"username="+id,
+						data:"username=",
 						success: function(){
-							
+							window.location = "index.php";
 						},
 						
 						error : function(resultat, statut, erreur){

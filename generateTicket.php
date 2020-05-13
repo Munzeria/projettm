@@ -2,7 +2,7 @@
 	include 'connexion.php';
 	require('fpdf/fpdf.php');
 	
-	$idTicket=$_GET['idTicket'];
+	$idTicket=$_POST['idTicket'];
 	
 	$bdd = connectDB("localhost","cinema","root","");
 	

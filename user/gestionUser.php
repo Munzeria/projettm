@@ -45,11 +45,17 @@
 		
 		$req="update userInformation set password='".hash('sha256', $mdp)."', nom='$nom', prenom='$prenom', addresse='$adresse', cp='$cp', ville='$ville', tel='$tel' where username='$username'";
 		writeDB($bdd,$req);
-		
-		
 	}
 	
+	function getTicketUser($data){
+		$username=$data['myParams']['username'];
 
+		$bdd = connectDB("localhost","cinema","root","");
+		
+		$req="select ticket.idTicket as 'id', DATE_FORMAT(ticket.horaire,'%e/%c/%Y %H:%i:%S') as 'horaire', ticket.idSalle as 'salle', ticket.tarif as 'tarif' , film.titre as 'film', genre.libelle as 'genre' from ticket inner join projection using(horaire,idSalle) inner join film using(idFilm) inner join genre using(idGenre) where ticket.username='$username' ";
+		readDB($bdd,$req);	
+
+	}
 
 
 ?>

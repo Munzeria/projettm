@@ -14,32 +14,73 @@
 		<link href="logincss.css" rel="stylesheet">
 		
 		<script>
-			(document).ready(function(){
-				$(".submit").click(function(event) {
+		var user;
+		function addMoney(){
+			$.ajax({
+				url: 'gestionUser',
+				type:'POST',
+				data:
+				{
+					myFunction:'addMoney',
+					myParams:{	
+						username:user,
+						argent:$('input[id=inputAmount]').val()
+					}
+				}, 
+				success: function(){
+				},
+				
+				error : function(resultat, statut, erreur){
+					alert( "error détectée:" + resultat.responseText);
+				}
+			});
+			
+		}
+		
+		
+		
+			$(document).ready(function(){
+				
+				$("#submit").click(function(event) {
+					if($('input[id=inputAmount]').val()==0) {
+						alert("Veuillez rentrer une somme");
+						return;
+					}
 					$.ajax({
-						url: 'addMoney.php',
+						url: 'gestionUser',
 						type:'POST',
-						data:"username=",
-						success: function(){
-							window.location = "index.php";
+						data:
+						{
+							myFunction:'connexionUser',
+							myParams:{	
+							}
+						},
+						async:false, 
+						success: function(str){
+							user=$.trim(str);
+							addMoney();
+							alert("argent ajouté"); 
 						},
 						
 						error : function(resultat, statut, erreur){
 							alert( "error détectée:" + resultat.responseText);
 						}
-					})
+					});
+					window.location.replace("../index.php");
 				});
+				
+				
 			});
 	</script>
 		
 	</head>
 	
 	<body>
-		<form class="box container-sm sm-1 form-signin" action="" method="post" name="login">
+		<div class="box container-sm sm-1 form-signin">
 			
 			<label for="inputAmount">Montant</label>
-			<input type="number" id="inputAmount" class="box-input form-control" name="amoun" placeholder="Montant" required>
-			<input type="submit" value="Valider " name="submit" class="box-button btn btn-primary">
-		</form>
+			<input type="number" id="inputAmount" class="box-input form-control" name="amount" placeholder="Montant" required>
+			<input type="submit" value="Valider " id="submit" class="box-button btn btn-primary">
+		</div>
 	</body>
 </html>
